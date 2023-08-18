@@ -26,14 +26,15 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const WheelScreen = (props) => {
-  let { dataWheel, handleSpinWheel } = wheelScreenLogic(props);
+  let { dataWheel, platformSelected, handleSpinWheel } =
+    wheelScreenLogic(props);
 
   return (
     <WheelContainer>
       <MenuSelection typeSelection={SelectionType.WHEEL} />
       <RightContainer>
         <HeaderRight>
-          <HeaderTitle>Công viên ước mơ</HeaderTitle>
+          <HeaderTitle>{platformSelected?.platform?.name}</HeaderTitle>
         </HeaderRight>
 
         <ContentRightContainer align_items={"center"}>

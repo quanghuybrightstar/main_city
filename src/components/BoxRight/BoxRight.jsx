@@ -11,25 +11,23 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   perHeight = SmartBaseScreen.smPercentHeight,
   smFontSize = SmartBaseScreen.smFontSize;
 
-const BoxRight = ({ href, children }) => {
+const BoxRight = ({ handleNavigate, children }) => {
   return (
-    <Link to={href}>
-      <FlexRowStyle>
-        <div
-          style={{
-            cursor: "pointer",
-            fontSize: smFontSize * 60,
-            lineHeight: smFontSize * 0,
-            color: ColorBase.yellowPrimary,
-            margin: `0 ${baseWidth * 25}px ${baseWidth * 16}px 0`,
-          }}
-          onClick={() => console.log("exchange puzziz")}
-        >
-          +
-        </div>
-        <BaseTitleGame>{children}</BaseTitleGame>
-      </FlexRowStyle>
-    </Link>
+    <FlexRowStyle>
+      <div
+        style={{
+          cursor: "pointer",
+          fontSize: smFontSize * 60,
+          lineHeight: smFontSize * 0,
+          color: ColorBase.yellowPrimary,
+          margin: `0 ${baseWidth * 25}px ${baseWidth * 16}px 0`,
+        }}
+        onClick={() => handleNavigate()}
+      >
+        +
+      </div>
+      <BaseTitleGame>{children}</BaseTitleGame>
+    </FlexRowStyle>
   );
 };
 

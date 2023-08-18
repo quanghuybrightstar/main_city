@@ -2,32 +2,32 @@ class OptionSelect {
   static optionTimeFilter = [
     {
       id: 1,
-      type: "Mới nhất",
+      name: "Mới nhất",
+      type: "new",
     },
     {
       id: 2,
-      type: "Cũ nhất",
-    },
-
-    {
-      id: 3,
-      type: "Cũ nhất",
+      name: "Cũ nhất",
+      type: "old",
     },
   ];
 
   static optionGiftFilter = [
     {
       id: 1,
-      type: "Tất cả",
+      name: "Tất cả",
+      type: "all",
     },
     {
       id: 2,
-      type: "Tiền",
+      name: "Voucher",
+      type: "voucher",
     },
 
     {
       id: 3,
-      type: "Ưu đãi",
+      name: "Kim Cương",
+      type: "diamond",
     },
   ];
 }

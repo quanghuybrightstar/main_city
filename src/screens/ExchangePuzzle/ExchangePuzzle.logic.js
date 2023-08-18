@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import getPlatformDetail from "../../base/GetPlatformDetail";
+import { setDetailPlatform } from "../../redux/actions/actions";
 
 export const exchangePuzzleLogic = (props) => {
-  const navigate = useNavigate();
+  const _dispatch = useDispatch();
+  const _navigate = useNavigate();
+  const platformSelected = useSelector((state) => state.platformSelected);
 
   const [myExchangePuzzle, setMyExchangePuzzle] = useState([
     {
@@ -71,13 +76,29 @@ export const exchangePuzzleLogic = (props) => {
     },
   ]);
 
+  useEffect(() => {
+    const getDetailPlatform = async () => {
+      if (platformSelected.platform) {
+        const detail = await getPlatformDetail(platformSelected.platform);
+        _dispatch(setDetailPlatform(detail));
+      }
+    };
+
+    getDetailPlatform();
+  }, []);
+
   const handleGoBack = () => {
-    navigate(-1);
+    _navigate(-1);
+  };
+
+  const handleNavigate = () => {
+    _navigate("/more_exchange");
   };
 
   return {
     myExchangePuzzle,
     dataRequiredExchange,
     handleGoBack,
+    handleNavigate,
   };
 };

@@ -38,7 +38,7 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const ExchangePuzzle = (props) => {
-  let { myExchangePuzzle, dataRequiredExchange, handleGoBack } =
+  let { myExchangePuzzle, dataRequiredExchange, handleGoBack, handleNavigate } =
     exchangePuzzleLogic(props);
 
   const renderExchange = (exchange) => {
@@ -178,7 +178,7 @@ const ExchangePuzzle = (props) => {
               <ExchangeHeader>
                 <BaseTextSize20>Danh sách đổi của tôi</BaseTextSize20>
                 <MoreExchange>
-                  <BoxRight href="/factory/more_exchange">
+                  <BoxRight handleNavigate={handleNavigate}>
                     Thêm trao đổi
                   </BoxRight>
                 </MoreExchange>

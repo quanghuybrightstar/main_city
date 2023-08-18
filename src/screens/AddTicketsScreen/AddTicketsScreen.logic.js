@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const addTicketsLogic = (props) => {
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
 
   const [dataMissions, setDataMissions] = useState([
     {
@@ -75,7 +75,7 @@ export const addTicketsLogic = (props) => {
   };
 
   const handleGoBack = () => {
-    navigate(-1);
+    _navigate(-1);
   };
 
   return {

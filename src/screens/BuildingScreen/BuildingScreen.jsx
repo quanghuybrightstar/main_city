@@ -35,6 +35,7 @@ import SelectionType from "../../constants/Selection";
 import SelectCustom from "../../components/SelectCustom/SelectCustom";
 import OptionSelect from "../../constants/OptionSelect";
 import { useSelector } from "react-redux";
+import API from "../../apis/APIConstant";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -46,10 +47,11 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
 const BuildingScreen = (props) => {
   let {
     timeSort,
-    typeGift,
+    nameGift,
     isOpenSelectTime,
     isOpenSelectGift,
     dataVoucher,
+    platformSelected,
     handleOpenSelectModal,
     handleChangeFilterTime,
     handleChangeFilterGift,
@@ -57,12 +59,10 @@ const BuildingScreen = (props) => {
 
   const access_token = useSelector((state) => state.authReducer);
 
-  console.log(access_token);
-
   const renderItemVoucher = (voucher) => {
     return (
       <div
-        key={voucher.id}
+        key={voucher?.item_id}
         style={{
           display: "flex",
           flexDirection: "row",
@@ -77,17 +77,17 @@ const BuildingScreen = (props) => {
         }}
       >
         <ImageBase
-          src={`${SrcImage.SrcBuildingScreen}${voucher.imgURL}`}
-          alt="Ticket Image"
+          src={`${API.baseURL}${voucher?.item_image}`}
+          alt="Item Image"
           widthProps={140}
           heightProps={140}
           marginProps={`0 ${20 * baseWidth}px 0 ${10 * baseWidth}px`}
         />
 
         <FlexColStyle>
-          <BaseTitleGame>{voucher.name}</BaseTitleGame>
+          <BaseTitleGame>{voucher?.item_name}</BaseTitleGame>
 
-          <BaseTextSize18>{voucher.detail}</BaseTextSize18>
+          <BaseTextSize18>{voucher?.item_description}</BaseTextSize18>
         </FlexColStyle>
       </div>
     );
@@ -98,7 +98,7 @@ const BuildingScreen = (props) => {
       <MenuSelection typeSelection={SelectionType.BUILDING} />
       <RightContainer>
         <HeaderRight>
-          <HeaderTitle>Cao ốc vui vẻ</HeaderTitle>
+          <HeaderTitle>{platformSelected?.platform?.name}</HeaderTitle>
         </HeaderRight>
 
         <ContentRightBuilding>
@@ -123,7 +123,7 @@ const BuildingScreen = (props) => {
             </FilterItem>
 
             <FilterItem>
-              <BaseTextSize20>Dạng quà tặng: {typeGift}</BaseTextSize20>
+              <BaseTextSize20>Dạng quà tặng: {nameGift}</BaseTextSize20>
               <PseudoClick onClick={() => handleOpenSelectModal("gift")}>
                 <ImageBase
                   src={`${SrcImage.BaseURL}/ico_arrow_down.png`}
@@ -137,7 +137,7 @@ const BuildingScreen = (props) => {
               <SelectCustom
                 isVisible={isOpenSelectGift}
                 dataSelect={OptionSelect.optionGiftFilter}
-                handleClickType={(type) => handleChangeFilterGift(type)}
+                handleClickType={(data) => handleChangeFilterGift(data)}
               />
             </FilterItem>
           </FilterRight>

@@ -15,7 +15,6 @@ import {
   DetailSelection,
   TextBtnSmall,
   BtnNext,
-  TextUnderline,
 } from "./MenuSelection.style";
 import HeaderLogo from "../Header/HeaderLogo";
 import AvatarUser from "../AvatarUser/AvatarUser";
@@ -25,6 +24,7 @@ import ButtonBase from "../Button/Button";
 import { TextBtn } from "../../screens/HomeScreen/HomeScreen.style";
 import { Link } from "react-router-dom";
 import ColorBase from "../../styles/Color";
+import API from "../../apis/APIConstant";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -33,24 +33,24 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const MenuSelection = (props) => {
-  let { dataSelection } = menuSelectionLogic(props);
+  let { dataSelection, handleSelectPlatform } = menuSelectionLogic(props);
 
   let { typeSelection } = props;
 
   const renderContent = (item) => {
-    switch (item.category_alias) {
+    switch (item?.type) {
       case SelectionType.DIAMOND:
-        return <BaseTextSize38>{item.diamond}</BaseTextSize38>;
+        return <BaseTextSize38>{item?.diamond}</BaseTextSize38>;
       case SelectionType.BUILDING:
         return (
           <DetailSelection>
-            Bạn vừa nhận thêm {item.quantity} hộp quà
+            Bạn vừa nhận thêm {item?.quantity} hộp quà
           </DetailSelection>
         );
       case SelectionType.SQUARE:
         return (
           <DetailSelection>
-            Hạng {item.ranking}{" "}
+            Hạng {item?.ranking}{" "}
             <div
               style={{
                 fontSize: smFontSize * 14,
@@ -63,18 +63,18 @@ const MenuSelection = (props) => {
                 heightProps={23}
                 marginProps={`0 0 0 ${20 * baseWidth}px`}
               />
-              {item.number_increase}
+              {item?.number_increase}
             </div>
           </DetailSelection>
         );
       case SelectionType.FACTORY:
         return (
-          <RemainText countRemaining={`${item.new_puzzle} mảnh ghép mới`} />
+          <RemainText countRemaining={`${item?.quantity} mảnh ghép mới`} />
         );
       default:
         return (
           <DetailSelection>
-            <RemainText countRemaining={`${item.ticket_remaining} vé`} />
+            <RemainText countRemaining={`${item?.ticket_quantity} vé`} />
             <ImageBase
               src={`${SrcImage.BaseURL}/${
                 item?.type == typeSelection
@@ -127,8 +127,10 @@ const MenuSelection = (props) => {
           )}
           <FlexRowStyle>
             <ImageBase
-              src={`${SrcImage.BaseURL}${
-                item?.type == typeSelection ? item.imgUrlSelected : item.imgUrl
+              src={`${API.baseURL}${
+                item?.type == typeSelection
+                  ? item?.image_selected
+                  : item?.image_default
               }`}
               alt="Item Image"
               widthProps={88}
@@ -146,22 +148,20 @@ const MenuSelection = (props) => {
                       : ColorBase.yellowPrimary,
                 }}
               >
-                {item.title}
+                {item?.name}
               </div>
               {renderContent(item)}
             </ContentSlection>
           </FlexRowStyle>
 
-          {item.type != SelectionType.DIAMOND && (
-            <BtnNext onClick={() => console.log("next")}>
-              <Link to={`/${item?.type.toLowerCase()}`}>
+          {item?.type != SelectionType.DIAMOND && (
+            <BtnNext onClick={() => handleSelectPlatform(item)}>
                 <ImageBase
                   src={`${SrcImage.BaseURL}/items/ico_next.png`}
                   alt="Item Image"
                   widthProps={34}
                   heightProps={34}
                 />
-              </Link>
             </BtnNext>
           )}
         </FlexBetweenStyle>

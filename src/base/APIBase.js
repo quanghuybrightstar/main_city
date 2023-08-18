@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 class APIBase {
   static access_token = localStorage.getItem("access_token");
 
-
   static updateAccessToken(token) {
     APIBase.access_token = token;
   }
@@ -15,7 +14,7 @@ class APIBase {
       const headers = {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
-        "Authorization": `Bearer ${APIBase.access_token}`,
+        Authorization: `Bearer ${APIBase.access_token}`,
       };
       axios({
         method,
@@ -31,14 +30,9 @@ class APIBase {
         })
         .catch((error) => {
           reject(error);
-          // if (error.message == "Network Error") {
-          //   alert("Thông báo", "Vui lòng kiểm tra kết nối Internet", [
-          //     {
-          //       text: "Đồng ý",
-          //       style: "cancel",
-          //     },
-          //   ]);
-          // }
+          if (error.message == "Network Error") {
+            alert("Vui lòng kiểm tra kết nối Internet");
+          }
         });
     });
   }

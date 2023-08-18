@@ -1,35 +1,35 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import API from "../../apis/APIConstant";
+import getPlatformDetail from "../../base/GetPlatformDetail";
+import { setDetailPlatform } from "../../redux/actions/actions";
 
 export const buildingLogic = (props) => {
+  const _dispatch = useDispatch();
+  const platformSelected = useSelector((state) => state.platformSelected);
+
+  console.log(platformSelected.platform);
+  const [dataVoucher, setDataVoucher] = useState([]);
+  const [sideDataVoucher, setSideDataVoucher] = useState([]);
+  useEffect(() => {
+    const getDetailPlatform = async () => {
+      if (platformSelected.platform) {
+        const detail = await getPlatformDetail(platformSelected.platform);
+        _dispatch(setDetailPlatform(detail));
+        setDataVoucher(detail);
+        setSideDataVoucher(detail);
+      }
+    };
+
+    getDetailPlatform();
+  }, []);
+
   const [timeSort, setTimeSort] = useState("Mới nhất");
-  const [typeGift, setTypeGift] = useState("Tất cả");
+  const [nameGift, setNameGift] = useState("Tất cả");
 
   const [isOpenSelectTime, setIsOpenSelectTime] = useState(false);
   const [isOpenSelectGift, setIsOpenSelectGift] = useState(false);
-
-  const [dataVoucher, setDataVoucher] = useState([
-    {
-      id: 1,
-      imgURL: "/airline.png",
-      name: "Voucher 500.000 đ",
-      detail:
-        "e-Voucher trị giá 500.000 đ khi thanh toán đặt trước vé máy bay các chuyến nội địa.",
-    },
-    {
-      id: 2,
-      imgURL: "/hotel.png",
-      name: "Voucher Ưu đãi",
-      detail:
-        "2 ngày tận hưởng dịch vụ miễn phí tại Khách sạn Mường Thanh - Nha Trang.",
-    },
-    {
-      id: 3,
-      imgURL: "/tour.png",
-      name: "Voucher Ưu đãi",
-      detail:
-        "Tặng 20% giá trị khi tham gia tận hưởng tour du lịch tại Phú Quốc 2 ngày 1 đêm.",
-    },
-  ]);
 
   const handleOpenSelectModal = (type) => {
     if (type == "time") {
@@ -51,18 +51,28 @@ export const buildingLogic = (props) => {
     setIsOpenSelectTime(false);
   };
 
-  const handleChangeFilterGift = (type) => {
-    setTypeGift(type);
+  const handleChangeFilterGift = (data) => {
+    setNameGift(data.name);
     setIsOpenSelectGift(false);
     setIsOpenSelectTime(false);
+    if (data.type == "all") {
+      setDataVoucher(sideDataVoucher);
+    } else {
+      let filterDataVoucher = sideDataVoucher;
+      filterDataVoucher = filterDataVoucher.filter(
+        (voucher) => voucher.item_category == data.type
+      );
+      setDataVoucher(filterDataVoucher);
+    }
   };
 
   return {
     timeSort,
-    typeGift,
+    nameGift,
     dataVoucher,
     isOpenSelectTime,
     isOpenSelectGift,
+    platformSelected,
     handleChangeFilterTime,
     handleOpenSelectModal,
     handleChangeFilterGift,

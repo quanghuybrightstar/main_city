@@ -5,9 +5,12 @@ import { useSelector } from "react-redux";
 import API from "../../apis/APIConstant";
 import APIBase from "../../base/APIBase";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setPlatformSelected } from "../../redux/actions/actions";
 
 export const homeScreenLogic = (props) => {
   const _navigate = useNavigate();
+  const _dispatch = useDispatch();
 
   const [count, setCount] = useState(0);
   const [dataPlatformList, setDataPlatformList] = useState([]);
@@ -24,9 +27,10 @@ export const homeScreenLogic = (props) => {
     getDataFlatformList();
   }, []);
 
-  const handleNavigate = (type) => {
-    console.log(type);
-    _navigate(`/${type}`);
+  const handleNavigate = (platform) => {
+    console.log(platform?.type);
+    _navigate(`/${platform?.type}`);
+    _dispatch(setPlatformSelected(platform));
   };
 
   return {

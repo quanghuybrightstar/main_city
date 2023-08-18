@@ -22,6 +22,7 @@ import ImageBase from "../../components/Image/ImageBase";
 import SelectionType from "../../constants/Selection";
 import { Link } from "react-router-dom";
 import BoxRight from "../../components/BoxRight/BoxRight";
+import API from "../../apis/APIConstant";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -31,47 +32,60 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const FactoryScreen = (props) => {
-  let { dataGiftPuzzle } = factoryLogic(props);
+  let { dataGiftPuzzle, platformSelected, handleNavigate } =
+    factoryLogic(props);
 
-  const renderPuzzlePieces = (puzzle) => {
+  const renderPuzzlePieces = (puzzle, index) => {
     return (
       <div
-        key={puzzle.id}
+        key={puzzle.item_id}
         style={{
           position: "relative",
           width: 130 * baseWidth,
           height: 130 * baseWidth,
           border: `${1 * baseWidth}px solid #00b3b3`,
           borderRight: `${
-            puzzle.id != 5 && puzzle.id != 10 ? 0 : 1 * baseWidth
+            index != 4 && index != 9 ? 0 : 1 * baseWidth
           }px solid #00b3b3`,
-          borderTop: `${puzzle.id > 5 ? 0 : 1 * baseWidth}px solid #00b3b3`,
+          borderTop: `${index > 4 ? 0 : 1 * baseWidth}px solid #00b3b3`,
           // flexBasis: "15%",
-          borderTopLeftRadius: `${puzzle.type == "A" && 10 * baseWidth}px`,
-          borderTopRightRadius: `${puzzle.type == "E" && 10 * baseWidth}px`,
-          borderBottomLeftRadius: `${puzzle.type == "F" && 10 * baseWidth}px`,
-          borderBottomRightRadius: `${puzzle.type == "K" && 10 * baseWidth}px`,
+          borderTopLeftRadius: `${puzzle.item_name == "A" && 10 * baseWidth}px`,
+          borderTopRightRadius: `${
+            puzzle.item_name == "E" && 10 * baseWidth
+          }px`,
+          borderBottomLeftRadius: `${
+            puzzle.item_name == "F" && 10 * baseWidth
+          }px`,
+          borderBottomRightRadius: `${
+            puzzle.item_name == "K" && 10 * baseWidth
+          }px`,
         }}
       >
         <div
           style={{
             position: "absolute",
-            display: puzzle.count_puzzle <= 0 ? "block" : "none",
+            display: puzzle.quantity_available <= 0 ? "block" : "none",
             top: 0,
             left: 0,
             bottom: 0,
             right: 0,
             backgroundColor: "rgba(0, 0, 0, 0.6)",
-            borderTopLeftRadius: `${puzzle.type == "A" && 10 * baseWidth}px`,
-            borderTopRightRadius: `${puzzle.type == "E" && 10 * baseWidth}px`,
-            borderBottomLeftRadius: `${puzzle.type == "F" && 10 * baseWidth}px`,
+            borderTopLeftRadius: `${
+              puzzle.item_name == "A" && 10 * baseWidth
+            }px`,
+            borderTopRightRadius: `${
+              puzzle.item_name == "E" && 10 * baseWidth
+            }px`,
+            borderBottomLeftRadius: `${
+              puzzle.item_name == "F" && 10 * baseWidth
+            }px`,
             borderBottomRightRadius: `${
-              puzzle.type == "K" && 10 * baseWidth
+              puzzle.item_name == "K" && 10 * baseWidth
             }px`,
           }}
         ></div>
         <ImageBase
-          src={`${SrcImage.SrcFactoryScreen}${puzzle.imgURL}`}
+          src={`${API.baseURL}${puzzle?.item_image}`}
           alt="Ticket Image"
           widthProps={130}
           heightProps={130}
@@ -89,7 +103,7 @@ const FactoryScreen = (props) => {
             0 0 2px black`,
           }}
         >
-          {puzzle.type}
+          {puzzle.item_name}
         </div>
         <div
           style={{
@@ -101,16 +115,15 @@ const FactoryScreen = (props) => {
             justifyContent: "center",
           }}
         >
-          <PuzzleCount>{puzzle.count_puzzle} mảnh</PuzzleCount>
+          <PuzzleCount>{puzzle.quantity_available} mảnh</PuzzleCount>
         </div>
       </div>
     );
   };
-
   const renderListPuzzle = (dataPuzzle) => {
     return (
       <div
-        key={dataPuzzle.id}
+        key={dataPuzzle[0].parent_id}
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -121,9 +134,9 @@ const FactoryScreen = (props) => {
           position: "relative",
         }}
       >
-        <PuzzleName>{dataPuzzle.name}</PuzzleName>
+        <PuzzleName>{dataPuzzle && dataPuzzle[0]?.item_description}</PuzzleName>
         <BoxPuzzle>
-          {dataPuzzle.data.map((puzzle) => renderPuzzlePieces(puzzle))}
+          {dataPuzzle.map((puzzle, index) => renderPuzzlePieces(puzzle))}
         </BoxPuzzle>
 
         <FrameBottom>
@@ -144,8 +157,8 @@ const FactoryScreen = (props) => {
       <MenuSelection typeSelection={SelectionType.FACTORY} />
       <RightContainer>
         <HeaderRight>
-          <HeaderTitle>Nhà máy hạnh phúc</HeaderTitle>
-          <BoxRight href="/factory/exchange_puzzle">
+          <HeaderTitle>{platformSelected?.platform?.name}</HeaderTitle>
+          <BoxRight handleNavigate={handleNavigate}>
             Trao đổi mảnh ghép
           </BoxRight>
         </HeaderRight>

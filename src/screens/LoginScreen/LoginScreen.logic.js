@@ -36,12 +36,7 @@ export const loginScreenLogic = (props) => {
     } catch (e) {
       console.log(e);
       if (e.message == "Network Error") {
-        alert("Thông báo", "Vui lòng kiểm tra kết nối Internet", [
-          {
-            text: "Đồng ý",
-            style: "cancel",
-          },
-        ]);
+        alert("Vui lòng kiểm tra kết nối Internet");
       }
     }
   };

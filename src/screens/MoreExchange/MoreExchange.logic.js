@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const moreExchangeLogic = (props) => {
-  const navigate = useNavigate();
+  const _navigate = useNavigate();
   const [exchangeGive, setExchangeGive] = useState({});
   const [exchangeGet, setExchangeGet] = useState({});
   const [typeSelecting, setTypeSelecting] = useState("get");
@@ -149,7 +149,7 @@ export const moreExchangeLogic = (props) => {
   ]);
 
   const handleGoBack = () => {
-    navigate(-1);
+    _navigate(-1);
   };
 
   const handleChangePuzzle = (type) => {

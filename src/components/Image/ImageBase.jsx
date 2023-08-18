@@ -13,6 +13,7 @@ const ImageBase = ({
   marginProps,
   puzzle,
   borderRadiusProps,
+  objectFitProps,
 }) => (
   <img
     src={src}
@@ -22,10 +23,13 @@ const ImageBase = ({
       height: heightProps * baseWidth,
       margin: marginProps,
       borderRadius: borderRadiusProps,
-      borderTopLeftRadius: `${puzzle?.type == "A" && 10 * baseWidth}px`,
-      borderTopRightRadius: `${puzzle?.type == "E" && 10 * baseWidth}px`,
-      borderBottomLeftRadius: `${puzzle?.type == "F" && 10 * baseWidth}px`,
-      borderBottomRightRadius: `${puzzle?.type == "K" && 10 * baseWidth}px`,
+      objectFit: objectFitProps,
+      borderTopLeftRadius: `${puzzle?.item_name == "A" && 10 * baseWidth}px`,
+      borderTopRightRadius: `${puzzle?.item_name == "E" && 10 * baseWidth}px`,
+      borderBottomLeftRadius: `${puzzle?.item_name == "F" && 10 * baseWidth}px`,
+      borderBottomRightRadius: `${
+        puzzle?.item_name == "K" && 10 * baseWidth
+      }px`,
     }}
   />
 );

@@ -24,9 +24,9 @@ const SelectCustom = (props) => {
         width: "80%",
         cursor: "pointer",
       }}
-      onClick={(e) => handleClickType(data?.type)}
+      onClick={(e) => handleClickType(data)}
     >
-      {data.type}
+      {data.name}
     </div>
   );
 

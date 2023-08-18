@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
 import "./App.css";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import SquareScreen from "./screens/SquareScreen/SquareScreen";
@@ -17,6 +16,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 import SelectionType from "./constants/Selection";
+import GameScreen from "./screens/GameScreen/GameScreen";
 
 function App() {
   return (
@@ -34,18 +34,14 @@ function App() {
                 element={<BuildingScreen />}
               />
               <Route path={SelectionType.FACTORY} element={<FactoryScreen />} />
+              <Route path={`add_ticket`} element={<AddTicketsScreen />} />
+              <Route path={`exchange_puzzle`} element={<ExchangePuzzle />} />
+              <Route path={`more_exchange`} element={<MoreExchange />} />
               <Route
-                path={`${SelectionType.WHEEL}/add_ticket`}
-                element={<AddTicketsScreen />}
+                path={`${SelectionType.MONOPOLY}`}
+                element={<GameScreen src="http://localhost:5173/" />}
               />
-              <Route
-                path={`${SelectionType.FACTORY}/exchange_puzzle`}
-                element={<ExchangePuzzle />}
-              />
-              <Route
-                path={`${SelectionType.FACTORY}/more_exchange`}
-                element={<MoreExchange />}
-              />
+
               <Route path="*" element={<NoPage />} />
             </Route>
           </Routes>

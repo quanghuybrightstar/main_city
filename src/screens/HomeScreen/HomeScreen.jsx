@@ -34,8 +34,6 @@ let baseWidth = SmartBaseScreen.smBaseWidth,
 const HomeScreen = (props) => {
   let { dataPlatformList, handleNavigate } = homeScreenLogic(props);
 
-  console.log(dataPlatformList);
-
   // const [baseWidth, setBaseWidth] = useState(window.innerWidth / 1980);
 
   // useEffect(() => {
@@ -113,7 +111,7 @@ const HomeScreen = (props) => {
             </TextPlatform>
             <FlexCenterStyle>
               <ButtonBase
-                onClick={() => handleNavigate(dataPlatformList[0]?.type)}
+                onClick={() => handleNavigate(dataPlatformList[0])}
                 borderProps={"1px solid #fff"}
               >
                 <TextBtn>Race</TextBtn>
@@ -136,7 +134,7 @@ const HomeScreen = (props) => {
             <FlexCenterStyle>
               <ButtonBase
                 borderProps={"1px solid #fff"}
-                onClick={() => handleNavigate(dataPlatformList[1]?.type)}
+                onClick={() => handleNavigate(dataPlatformList[1])}
               >
                 <TextBtn>Enter</TextBtn>
               </ButtonBase>
@@ -157,7 +155,7 @@ const HomeScreen = (props) => {
 
             <FlexCenterStyle>
               <ButtonBase
-                onClick={() => handleNavigate(dataPlatformList[2]?.type)}
+                onClick={() => handleNavigate(dataPlatformList[2])}
                 borderProps={"1px solid #fff"}
               >
                 <TextBtn>Play</TextBtn>
@@ -178,7 +176,7 @@ const HomeScreen = (props) => {
             </TextPlatform>
             <FlexCenterStyle>
               <ButtonBase
-                onClick={() => handleNavigate(dataPlatformList[3]?.type)}
+                onClick={() => handleNavigate(dataPlatformList[3])}
                 borderProps={"1px solid #fff"}
               >
                 <TextBtn>Spin</TextBtn>
@@ -199,7 +197,7 @@ const HomeScreen = (props) => {
             </TextPlatform>
             <FlexCenterStyle>
               <ButtonBase
-                onClick={() => handleNavigate(dataPlatformList[4]?.type)}
+                onClick={() => handleNavigate(dataPlatformList[4])}
                 borderProps={"1px solid #fff"}
               >
                 <TextBtn>Enter</TextBtn>
@@ -220,7 +218,7 @@ const HomeScreen = (props) => {
             </TextPlatform>
             <FlexCenterStyle>
               <ButtonBase
-                onClick={() => handleNavigate(dataPlatformList[5]?.type)}
+                onClick={() => handleNavigate(dataPlatformList[5])}
                 borderProps={"1px solid #fff"}
               >
                 <TextBtn>Enter</TextBtn>
