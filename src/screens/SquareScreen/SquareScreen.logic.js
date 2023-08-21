@@ -21,7 +21,7 @@ export const squareScreenLogic = (props) => {
         const detail = await getPlatformDetail(
           platformSelected.platform,
           pageCurrent,
-          20
+          10
         );
         _dispatch(setDetailPlatform(detail.slice(0, -1)));
         setDataRankList(detail.slice(0, -1));
@@ -99,7 +99,7 @@ export const squareScreenLogic = (props) => {
         const detail = await getPlatformDetail(
           platformSelected.platform,
           pageCurrent + 1,
-          20
+          10
         );
 
         if (detail?.slice(0, -1)?.length > 0) {

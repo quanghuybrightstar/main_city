@@ -4,9 +4,14 @@ import APIBase from "./APIBase";
 const getPlatformDetail = async (platform, page, limit) => {
   try {
     let dataResult = [];
-    let uriApi = `${API.baseURL}${API.detailPlatform}?id_platform=${
-      platform.id
-    }&type=${platform.type}&page=${page}&limit=${limit || 10}`;
+    let uriApi =
+      page || limit
+        ? `${API.baseURL}${API.detailPlatform}?id_platform=${
+            platform.id
+          }&type=${platform.type}&page=${page}&limit=${limit || 10}`
+        : `${API.baseURL}${API.detailPlatform}?id_platform=${
+            platform.id
+          }&type=${platform.type}`;
     console.log(platform);
 
     const result = await APIBase.apiCaller("GET", uriApi);

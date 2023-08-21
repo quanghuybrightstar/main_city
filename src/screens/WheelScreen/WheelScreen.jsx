@@ -26,8 +26,21 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const WheelScreen = (props) => {
-  let { dataWheel, platformSelected, handleSpinWheel } =
+  let { dataWheel, platformSelected, item, handleSpinWheel } =
     wheelScreenLogic(props);
+
+  const renderItemList = (item) => {
+    return (
+      <div
+        style={{
+          position: "absolute",
+          color: "yellow",
+        }}
+      >
+        {item.name}
+      </div>
+    );
+  };
 
   return (
     <WheelContainer>
@@ -38,13 +51,77 @@ const WheelScreen = (props) => {
         </HeaderRight>
 
         <ContentRightContainer align_items={"center"}>
-          <ImageBase
-            src={`${SrcImage.SrcWheelScreen}/wheel.png`}
-            alt="Wheel Image"
-            widthProps={535}
-            heightProps={535}
-            marginProps={`${35 * baseWidth}px 0 0 0`}
-          />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginTop: 35 * baseWidth,
+              position: "relative",
+            }}
+          >
+            <div
+              className="wheelContainer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                transition: "transform 5s ease-in-out",
+                position: "relative",
+              }}
+            >
+              <ImageBase
+                src={`${SrcImage.SrcWheelScreen}/wheel.png`}
+                alt="Wheel Image"
+                widthProps={535}
+                heightProps={535}
+                marginProps={`0 0 0 0`}
+              />
+
+              <div
+                style={{
+                  position: "absolute",
+                  color: "green",
+                  top: "55%",
+                  left: "10%",
+                }}
+              >
+                {item[5]?.name}
+              </div>
+
+              {/* <div id="123" style={{ position: "absolute", top: 80, left: 80 }}>
+                123
+              </div> */}
+            </div>
+            <div
+              id="456"
+              style={{
+                position: "absolute",
+                top: "46%",
+                left: 0,
+              }}
+            >
+              <ImageBase
+                src={`${SrcImage.SrcWheelScreen}/ico_wheel_select.png`}
+                alt="Select Wheel Icon"
+                widthProps={72}
+                heightProps={52}
+                marginProps={`0 0 0 0`}
+              />
+              <div
+                id="wheel"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  position: "absolute",
+                  top: "29%",
+                  left: "100%",
+                  height: 1 * baseWidth,
+                  color: "red",
+                }}
+              >
+                .
+              </div>
+            </div>
+          </div>
 
           <ImageBase
             src={`${SrcImage.SrcWheelScreen}/bracket.png`}

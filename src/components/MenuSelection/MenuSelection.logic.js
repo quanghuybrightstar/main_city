@@ -21,22 +21,10 @@ export const menuSelectionLogic = (props) => {
       if (result?.status) {
         // console.log(result);
         let sideData = result.data;
-        let length = sideData.length;
-        for (let i = 0; i < length; i++) {
-          for (let j = i + 1; j < length; j++) {
-            if (
-              (sideData[i].type == SelectionType.BUILDING &&
-                sideData[j].type == SelectionType.FACTORY) ||
-              (sideData[i].type == SelectionType.RACER &&
-                sideData[j].type == SelectionType.MONOPOLY)
-            ) {
-              let temp = sideData[i];
-              sideData[i] = sideData[j];
-              sideData[j] = temp;
-            }
-          }
-        }
-        setDataSelection(sideData.reverse());
+        sideData = sideData.sort(
+          (selectA, selectB) => selectA.sort - selectB.sort
+        );
+        setDataSelection(sideData);
       }
     };
     getDataSelection();
