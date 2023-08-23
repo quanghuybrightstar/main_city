@@ -22,17 +22,21 @@ import ColorBase from "../../styles/Color";
 import TextPlatform from "../../components/TextPlatform/TextPlatfform";
 import ImageBase from "../../components/Image/ImageBase";
 import ButtonBase from "../../components/Button/Button";
+import ModalLogin from "../../components/ModalLogin/ModalLogin";
 
 SmartBaseScreen.baseSetup();
 
 let baseWidth = SmartBaseScreen.smBaseWidth,
-  baseHeight = SmartBaseScreen.smBaseHeight,
-  perWidth = SmartBaseScreen.smPercentWidth,
-  perHeight = SmartBaseScreen.smPercentHeight,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const HomeScreen = (props) => {
-  let { dataPlatformList, handleNavigate } = homeScreenLogic(props);
+  let {
+    isVisibleExplore,
+    dataPlatformList,
+    isVisibleLogin,
+    handleNavigate,
+    handleCloseModal,
+  } = homeScreenLogic(props);
 
   // const [baseWidth, setBaseWidth] = useState(window.innerWidth / 1980);
 
@@ -50,9 +54,10 @@ const HomeScreen = (props) => {
 
   return (
     <HomeStyleContainer>
+      <ModalLogin isVisible={isVisibleLogin} onClickClose={handleCloseModal} />
       <LeftStyleContainer>
         <HeaderLogoContainer>
-          <HeaderLogo />
+          <HeaderLogo widthLogo={200} heightLogo={200} />
         </HeaderLogoContainer>
 
         <ImageBase
@@ -79,14 +84,13 @@ const HomeScreen = (props) => {
         <div
           style={{
             marginTop: 30 * baseWidth,
+            display: isVisibleExplore ? "block" : "none",
           }}
         >
           <FlexCenterStyle>
             <ButtonBase
               widthProps={300}
-              onClick={() => {
-                console.log("123");
-              }}
+              onClick={() => handleNavigate()}
               heightProps={65}
               borderProps={"1px solid #fff"}
             >

@@ -4,6 +4,7 @@ class ColorBase {
   static yellowPrimary = "#ffcc00";
   static bgCancel = "#ff1ac6";
   static bgAccept = "#cccc00";
+  static errorColor = "#dd2c00";
 }
 
 export default ColorBase;

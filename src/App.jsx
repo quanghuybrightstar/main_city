@@ -25,8 +25,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/">
-              <Route index element={<LoginScreen />} />
-              <Route path="home" element={<HomeScreen />} />
+              <Route index element={<HomeScreen />} />
               <Route path={SelectionType.SQUARE} element={<SquareScreen />} />
               <Route path={SelectionType.WHEEL} element={<WheelScreen />} />
               <Route
@@ -39,7 +38,16 @@ function App() {
               <Route path={`more_exchange`} element={<MoreExchange />} />
               <Route
                 path={`${SelectionType.MONOPOLY}`}
-                element={<GameScreen src="http://localhost:5173/" />}
+                element={
+                  <GameScreen src="https://monopoly.game.gkcorp.com.vn/" />
+                }
+              />
+
+              <Route
+                path={`${SelectionType.RACER}`}
+                element={
+                  <GameScreen src="http://indiarace.game.gkcorp.com.vn/" />
+                }
               />
 
               <Route path="*" element={<NoPage />} />

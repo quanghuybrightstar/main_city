@@ -28,6 +28,7 @@ const HomeStyleContainer = styled(FlexBetweenStyle)`
     center / cover;
   width: ${1920 * baseWidth}px;
   height: ${1030 * baseWidth}px;
+  position: relative;
 `;
 
 const TextBtn = styled.div`

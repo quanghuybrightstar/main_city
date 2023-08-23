@@ -30,7 +30,7 @@ const ExchangeContainer = styled(FlexBetweenStyle)`
 `;
 
 const ContentExchange = styled(FlexColStyle)`
-  height: ${755 * baseWidth}px;
+  max-height: ${755 * baseWidth}px;
   overflow-y: scroll; /* width */
   &::-webkit-scrollbar {
     width: ${12 * baseWidth}px;

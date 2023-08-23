@@ -65,6 +65,17 @@ const BaseTextSize20 = styled.div`
   color: #fff;
 `;
 
+const BaseTextSize28 = styled.div`
+  font-size: ${smFontSize * 28}px;
+  color: #fff;
+  text-align: center;
+`;
+
+const ErrorText = styled(BaseTextSize28)`
+  color: ${ColorBase.errorColor};
+  font-weight: 700;
+`;
+
 const BaseTextSize18 = styled.div`
   font-size: ${smFontSize * 18}px;
 `;
@@ -114,6 +125,8 @@ export {
   BaseTextSize38,
   BaseTextSize20,
   BaseTextSize18,
+  BaseTextSize28,
+  ErrorText,
   BaseTitleGame,
   RemainText,
   ContentRightContainer,

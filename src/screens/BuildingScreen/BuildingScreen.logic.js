@@ -8,25 +8,42 @@ import { setDetailPlatform } from "../../redux/actions/actions";
 export const buildingLogic = (props) => {
   const _dispatch = useDispatch();
   const platformSelected = useSelector((state) => state.platformSelected);
-
-  console.log(platformSelected.platform);
   const [dataVoucher, setDataVoucher] = useState([]);
   const [sideDataVoucher, setSideDataVoucher] = useState([]);
+
   useEffect(() => {
     const getDetailPlatform = async () => {
       if (platformSelected.platform) {
         const detail = await getPlatformDetail(platformSelected.platform);
         _dispatch(setDetailPlatform(detail));
-        setDataVoucher(detail);
-        setSideDataVoucher(detail);
+
+        const detailAvailable = detail.filter(
+          (data) =>
+            data?.quantity_available > 0 && data?.item_category != "diamond"
+        );
+
+        const dataVoucherFiltered = detailAvailable.sort((a, b) => {
+          return new Date(b.time_upload) - new Date(a.time_upload);
+        });
+
+        setDataVoucher(dataVoucherFiltered);
+        setSideDataVoucher(dataVoucherFiltered);
       }
     };
 
     getDetailPlatform();
   }, []);
 
-  const [timeSort, setTimeSort] = useState("Mới nhất");
-  const [nameGift, setNameGift] = useState("Tất cả");
+  const [timeSort, setTimeSort] = useState({
+    id: 1,
+    name: "Mới nhất",
+    type: "new",
+  });
+  const [nameGift, setNameGift] = useState({
+    id: 1,
+    name: "Tất cả",
+    type: "all",
+  });
 
   const [isOpenSelectTime, setIsOpenSelectTime] = useState(false);
   const [isOpenSelectGift, setIsOpenSelectGift] = useState(false);
@@ -45,25 +62,54 @@ export const buildingLogic = (props) => {
     }
   };
 
-  const handleChangeFilterTime = (type) => {
-    setTimeSort(type);
+  const handleFilterTime = (array, type) => {
+    let filterDataVoucher = [];
+    if (type == "new") {
+      filterDataVoucher = array.sort((a, b) => {
+        return new Date(b.time_upload) - new Date(a.time_upload);
+      });
+    } else if (type == "old") {
+      filterDataVoucher = array.sort((a, b) => {
+        return new Date(a.time_upload) - new Date(b.time_upload);
+      });
+    }
+
+    return filterDataVoucher;
+  };
+
+  const handleFilterGift = (array, type) => {
+    if (type == "all") {
+      return array;
+    } else {
+      let filterDataVoucher = array;
+      filterDataVoucher = filterDataVoucher.filter(
+        (voucher) => voucher.item_category == type
+      );
+
+      return filterDataVoucher;
+    }
+  };
+
+  const handleChangeFilterTime = (data) => {
+    setTimeSort(data);
     setIsOpenSelectGift(false);
     setIsOpenSelectTime(false);
+
+    const filterDataGift = handleFilterGift(sideDataVoucher, nameGift.type);
+    const filterDataTime = handleFilterTime(filterDataGift, data.type);
+
+    setDataVoucher(filterDataTime);
   };
 
   const handleChangeFilterGift = (data) => {
-    setNameGift(data.name);
+    setNameGift(data);
     setIsOpenSelectGift(false);
     setIsOpenSelectTime(false);
-    if (data.type == "all") {
-      setDataVoucher(sideDataVoucher);
-    } else {
-      let filterDataVoucher = sideDataVoucher;
-      filterDataVoucher = filterDataVoucher.filter(
-        (voucher) => voucher.item_category == data.type
-      );
-      setDataVoucher(filterDataVoucher);
-    }
+
+    const filterDataTime = handleFilterTime(sideDataVoucher, timeSort.type);
+    const filterDataGift = handleFilterGift(filterDataTime, data.type);
+
+    setDataVoucher(filterDataGift);
   };
 
   return {

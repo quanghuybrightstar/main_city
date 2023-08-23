@@ -5,10 +5,13 @@ export const setAuthToken = (token) => ({
   payload: token,
 });
 
-export const setPlatformSelected = (platform) => ({
-  type: ActionsConstant.SET_PLATFORM_SELECTED,
-  payload: platform,
-});
+export const setPlatformSelected = (platform) => {
+  localStorage.setItem("platformSelected", platform);
+  return {
+    type: ActionsConstant.SET_PLATFORM_SELECTED,
+    payload: platform,
+  };
+};
 
 export const setDetailPlatform = (detail) => ({
   type: ActionsConstant.SET_DETAIL_PLATFORM,

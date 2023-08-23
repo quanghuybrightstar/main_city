@@ -73,7 +73,6 @@ export const moreExchangeLogic = (props) => {
       count_puzzle: 2,
       type: "A",
     },
-
     {
       id: 12,
       typeGift: "vinhome",

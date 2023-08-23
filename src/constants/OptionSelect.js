@@ -23,12 +23,6 @@ class OptionSelect {
       name: "Voucher",
       type: "voucher",
     },
-
-    {
-      id: 3,
-      name: "Kim Cương",
-      type: "diamond",
-    },
   ];
 }
 

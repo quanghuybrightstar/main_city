@@ -42,7 +42,7 @@ const ListPuzzleAll = styled(FlexRowStyle)`
   flex-wrap: wrap;
   margin-top: ${baseWidth * 10}px;
   margin-left: ${baseWidth * 10}px;
-  height: ${520 * baseWidth}px;
+  max-height: ${520 * baseWidth}px;
   overflow-y: scroll; /* width */
   &::-webkit-scrollbar {
     width: ${12 * baseWidth}px;

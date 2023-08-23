@@ -11,15 +11,15 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   perHeight = SmartBaseScreen.smPercentHeight,
   smFontSize = SmartBaseScreen.smFontSize;
 
-const HeaderLogo = () => {
+const HeaderLogo = ({ widthLogo, heightLogo }) => {
   return (
     <FlexRowStyle>
-      <Link to="/home">
+      <Link to="/">
         <ImageBase
           src={`${SrcImage.BaseURL}/logo.png`}
           alt="Logo Image"
-          widthProps={71}
-          heightProps={71}
+          widthProps={widthLogo || 71}
+          heightProps={heightLogo || 71}
         />
       </Link>
       <FlexRowStyle>

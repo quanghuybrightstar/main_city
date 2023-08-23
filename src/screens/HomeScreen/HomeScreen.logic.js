@@ -12,7 +12,10 @@ export const homeScreenLogic = (props) => {
   const _navigate = useNavigate();
   const _dispatch = useDispatch();
 
-  const [count, setCount] = useState(0);
+  const [isVisibleExplore, setIsVisibleExplore] = useState(
+    APIBase.access_token ? false : true
+  );
+  const [isVisibleLogin, setIsVisibleLogin] = useState(false);
   const [dataPlatformList, setDataPlatformList] = useState([]);
 
   useEffect(() => {
@@ -27,15 +30,34 @@ export const homeScreenLogic = (props) => {
     getDataFlatformList();
   }, []);
 
+  useEffect(() => {
+    if (APIBase.access_token != "" && APIBase.access_token) {
+      setIsVisibleLogin(false);
+      setIsVisibleExplore(false);
+    }
+  }, [APIBase.access_token]);
+
   const handleNavigate = (platform) => {
-    console.log(platform?.type);
-    _navigate(`/${platform?.type}`);
-    _dispatch(setPlatformSelected(platform));
+    console.log(APIBase.access_token);
+    if (APIBase.access_token == "" || !APIBase.access_token) {
+      setIsVisibleLogin(true);
+    } else {
+      if (platform) {
+        _navigate(`/${platform?.type}`);
+        _dispatch(setPlatformSelected(platform));
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsVisibleLogin(false);
   };
 
   return {
-    count,
     dataPlatformList,
+    isVisibleLogin,
+    isVisibleExplore,
     handleNavigate,
+    handleCloseModal,
   };
 };

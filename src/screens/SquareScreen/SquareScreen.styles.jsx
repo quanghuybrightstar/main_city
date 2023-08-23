@@ -54,7 +54,7 @@ const ContentRightContainer = styled(FlexColStyle)`
   position: relative;
   behavior: smooth;
 
-  height: ${710 * baseWidth}px;
+  max-height: ${710 * baseWidth}px;
   overflow-y: scroll; /* width */
   &::-webkit-scrollbar {
     width: ${12 * baseWidth}px;

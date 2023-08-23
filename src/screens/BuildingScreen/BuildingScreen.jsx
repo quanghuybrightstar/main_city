@@ -104,7 +104,7 @@ const BuildingScreen = (props) => {
         <ContentRightBuilding>
           <FilterRight>
             <FilterItem>
-              <BaseTextSize20>Sắp xếp theo: {timeSort}</BaseTextSize20>
+              <BaseTextSize20>Sắp xếp theo: {timeSort.name}</BaseTextSize20>
               <PseudoClick onClick={() => handleOpenSelectModal("time")}>
                 <ImageBase
                   src={`${SrcImage.BaseURL}/ico_arrow_down.png`}
@@ -118,12 +118,12 @@ const BuildingScreen = (props) => {
               <SelectCustom
                 isVisible={isOpenSelectTime}
                 dataSelect={OptionSelect.optionTimeFilter}
-                handleClickType={(type) => handleChangeFilterTime(type)}
+                handleClickType={(data) => handleChangeFilterTime(data)}
               />
             </FilterItem>
 
             <FilterItem>
-              <BaseTextSize20>Dạng quà tặng: {nameGift}</BaseTextSize20>
+              <BaseTextSize20>Dạng quà tặng: {nameGift.name}</BaseTextSize20>
               <PseudoClick onClick={() => handleOpenSelectModal("gift")}>
                 <ImageBase
                   src={`${SrcImage.BaseURL}/ico_arrow_down.png`}

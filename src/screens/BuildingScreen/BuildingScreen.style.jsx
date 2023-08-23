@@ -45,6 +45,32 @@ const FilterItem = styled(FlexRowStyle)`
 const ListVouchers = styled(FlexRowStyle)`
   flex-wrap: wrap;
   margin-left: ${baseWidth * 20}px;
+
+  // position: relative;
+  behavior: smooth;
+
+  max-height: ${710 * baseWidth}px;
+  overflow-y: scroll; /* width */
+  &::-webkit-scrollbar {
+    width: ${12 * baseWidth}px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: ${12 * baseWidth}px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #ffff00;
+    border-radius: ${12 * baseWidth}px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #e6e600;
+  }
 `;
 
 export {
