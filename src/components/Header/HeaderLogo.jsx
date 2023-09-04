@@ -16,7 +16,8 @@ const HeaderLogo = ({ widthLogo, heightLogo }) => {
     <FlexRowStyle>
       <Link to="/">
         <ImageBase
-          src={`${SrcImage.BaseURL}/logo.png`}
+          // src={`${SrcImage.BaseURL}/logo.jpg`}
+          src={"https://media-public.canva.com/KIKAo/MADSaIKIKAo/2/t.png"}
           alt="Logo Image"
           widthProps={widthLogo || 71}
           heightProps={heightLogo || 71}

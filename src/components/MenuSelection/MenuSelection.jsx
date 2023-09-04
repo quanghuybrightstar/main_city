@@ -21,7 +21,6 @@ import AvatarUser from "../AvatarUser/AvatarUser";
 import { menuSelectionLogic } from "./MenuSelection.logic";
 import SelectionType from "../../constants/Selection";
 import ButtonBase from "../Button/Button";
-import { TextBtn } from "../../screens/HomeScreen/HomeScreen.style";
 import { Link } from "react-router-dom";
 import ColorBase from "../../styles/Color";
 import API from "../../apis/APIConstant";
@@ -40,11 +39,13 @@ const MenuSelection = (props) => {
   const renderContent = (item) => {
     switch (item?.type) {
       case SelectionType.DIAMOND:
-        return <BaseTextSize38>{item?.diamond}</BaseTextSize38>;
+        return (
+          <BaseTextSize38>{item?.diamond ? item?.diamond : "0"}</BaseTextSize38>
+        );
       case SelectionType.BUILDING:
         return (
           <DetailSelection>
-            Bạn vừa nhận thêm {item?.quantity} hộp quà
+            Bạn vừa nhận thêm {item?.quantity ? item?.quantity : "0"} hộp quà
           </DetailSelection>
         );
       case SelectionType.SQUARE:
@@ -63,18 +64,27 @@ const MenuSelection = (props) => {
                 heightProps={23}
                 marginProps={`0 0 0 ${20 * baseWidth}px`}
               />
-              {item?.number_increase}
+              {item?.current_ranking}
             </div>
           </DetailSelection>
         );
       case SelectionType.FACTORY:
         return (
-          <RemainText countRemaining={`${item?.quantity} mảnh ghép mới`} />
+          <RemainText
+            countRemaining={`${
+              item?.quantity ? item?.quantity : "0"
+            } mảnh ghép mới`}
+          />
         );
       default:
         return (
           <DetailSelection>
-            <RemainText countRemaining={`${item?.ticket_quantity} vé`} />
+            <RemainText
+              countRemaining={`${
+                item?.ticket_quantity ? item?.ticket_quantity : "0"
+              } vé`}
+              widthProps={120 * baseWidth}
+            />
             <ImageBase
               src={`${SrcImage.BaseURL}/${
                 item?.type == typeSelection
@@ -156,12 +166,12 @@ const MenuSelection = (props) => {
 
           {item?.type != SelectionType.DIAMOND && (
             <BtnNext onClick={() => handleSelectPlatform(item)}>
-                <ImageBase
-                  src={`${SrcImage.BaseURL}/items/ico_next.png`}
-                  alt="Item Image"
-                  widthProps={34}
-                  heightProps={34}
-                />
+              <ImageBase
+                src={`${SrcImage.BaseURL}/items/ico_next.png`}
+                alt="Item Image"
+                widthProps={34}
+                heightProps={34}
+              />
             </BtnNext>
           )}
         </FlexBetweenStyle>

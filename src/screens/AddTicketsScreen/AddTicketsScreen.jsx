@@ -9,10 +9,6 @@ import {
 import { addTicketsLogic } from "./AddTicketsScreen.logic";
 import SmartBaseScreen from "../../base/SmartScreenBase";
 import {
-  FlexAlignStyle,
-  FlexCenterStyle,
-  FlexBetweenStyle,
-  FlexEvenlyStyle,
   FlexRowStyle,
   FlexColStyle,
   RightContainer,
@@ -28,7 +24,6 @@ import SrcImage from "../../constants/SrcImage";
 import MenuSelection from "../../components/MenuSelection/MenuSelection";
 import { HeaderTitle } from "../../components/Header";
 import ButtonBase from "../../components/Button/Button";
-import TypeTime from "../../constants/TypeTime";
 import ImageBase from "../../components/Image/ImageBase";
 import PseudoClick from "../../components/PseudoClick/PseudoClick";
 import SelectionType from "../../constants/Selection";
@@ -36,9 +31,6 @@ import ColorBase from "../../styles/Color";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
-  baseHeight = SmartBaseScreen.smBaseHeight,
-  perWidth = SmartBaseScreen.smPercentWidth,
-  perHeight = SmartBaseScreen.smPercentHeight,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const AddTicketsScreen = (props) => {
@@ -48,6 +40,8 @@ const AddTicketsScreen = (props) => {
     countBuyItem,
     handleChangeCountBuy,
     handleGoBack,
+    handleBuyTickets,
+    handleDoMission,
   } = addTicketsLogic(props);
 
   const renderMission = (mission) => {
@@ -60,7 +54,7 @@ const AddTicketsScreen = (props) => {
           paddingRight: baseWidth * 60,
           marginTop: baseWidth * 25,
           position: "relative",
-          width: baseWidth * 480,
+          width: baseWidth * 450,
         }}
         key={mission.id}
       >
@@ -68,7 +62,7 @@ const AddTicketsScreen = (props) => {
           <BaseTextSize18>{mission.name}</BaseTextSize18>
 
           <FlexRowStyle>
-            <BaseTextSize38>+{mission.count_tickets}</BaseTextSize38>
+            <BaseTextSize38>+{mission.value}</BaseTextSize38>
 
             <ImageBase
               src={`${SrcImage.BaseURL}/ticket.png`}
@@ -78,25 +72,24 @@ const AddTicketsScreen = (props) => {
               marginProps={`0 ${8 * baseWidth}px`}
             />
 
-            <BaseTitleGame>{mission.title_game}</BaseTitleGame>
+            <BaseTitleGame>{mission.reward_name}</BaseTitleGame>
           </FlexRowStyle>
         </FlexColStyle>
 
         <FlexRowStyle>
           <ButtonBase
+            disabled={mission.enabled == 1 ? false : true}
             widthProps={140}
-            onClick={() => {
-              console.log("123");
-            }}
+            onClick={() => handleDoMission(mission)}
             heightProps={45}
             bgColorProps={
-              mission.is_completed === 1
+              mission.status === 1
                 ? ColorBase.yellowPrimary
                 : ColorBase.bluePrimary
             }
           >
             <TextBtnMission>
-              {mission.is_completed === 1 ? "Hoàn thành" : "Thực hiện"}
+              {mission.status === 1 ? "Hoàn thành" : "Thực hiện"}
             </TextBtnMission>
           </ButtonBase>
         </FlexRowStyle>
@@ -128,9 +121,9 @@ const AddTicketsScreen = (props) => {
           />
 
           <FlexColStyle>
-            <BaseTitleGame>{method.title}</BaseTitleGame>
+            <BaseTitleGame>{method.name}</BaseTitleGame>
             <FlexRowStyle>
-              <RemainText countRemaining={`${method.tickets_remaining} vé`} />
+              <RemainText countRemaining={`${method.quantity_item} vé`} />
 
               <ImageBase
                 src={`${SrcImage.BaseURL}/ticket.png`}
@@ -159,9 +152,9 @@ const AddTicketsScreen = (props) => {
                   color: "#fff",
                 }}
               >
-                {method.price}
+                {method.sale_price}
               </div>
-              {method.is_sale == 1 && (
+              {method.discount > 0 && (
                 <div
                   style={{
                     padding: `${2 * baseWidth}px ${12 * baseWidth}px`,
@@ -172,11 +165,11 @@ const AddTicketsScreen = (props) => {
                     marginLeft: baseWidth * 20,
                   }}
                 >
-                  -{method.number_sale}%
+                  -{method.discount}%
                 </div>
               )}
             </FlexRowStyle>
-            {method.is_sale == 1 ? (
+            {method.discount > 0 ? (
               <BaseTitleGame
                 marginProps={`${baseWidth * 18}px 0 0 ${baseWidth * 18}px`}
               >
@@ -212,9 +205,7 @@ const AddTicketsScreen = (props) => {
           <div>
             <ButtonBase
               widthProps={130}
-              onClick={() => {
-                console.log("buy");
-              }}
+              onClick={() => handleBuyTickets(method)}
               heightProps={45}
             >
               <TextBtnMission>Mua vé</TextBtnMission>

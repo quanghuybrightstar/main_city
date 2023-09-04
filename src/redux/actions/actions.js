@@ -17,3 +17,8 @@ export const setDetailPlatform = (detail) => ({
   type: ActionsConstant.SET_DETAIL_PLATFORM,
   payload: detail,
 });
+
+export const setAllPuzzles = (data) => ({
+  type: ActionsConstant.SET_ALL_PUZZLES,
+  payload: data,
+});

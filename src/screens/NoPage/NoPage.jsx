@@ -8,14 +8,14 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   perHeight = SmartBaseScreen.smPercentHeight,
   smFontSize = SmartBaseScreen.smFontSize;
 
-const NoPage = ({props}) => {
+const NoPage = ({ props }) => {
   return (
     <div
       style={{
         background: `url(${`${SrcImage.SrcNoPageScreen}/bgNoPage.jpg`}) no-repeat top
     center / cover`,
         width: 1920 * baseWidth,
-        height: 1030 * baseWidth,
+        height: 985 * baseWidth,
       }}
     />
   );

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import API from "../../apis/APIConstant";
 import { setPlatformSelected } from "../../redux/actions/actions";
 import { useNavigate } from "react-router-dom";
+import StorageValue from "../../Storage/StorageValue";
 
 export const menuSelectionLogic = (props) => {
   const _dispatch = useDispatch();
@@ -28,7 +29,7 @@ export const menuSelectionLogic = (props) => {
       }
     };
     getDataSelection();
-  }, []);
+  }, [StorageValue.isUpdateMenu]);
 
   const handleSelectPlatform = (platform) => {
     _dispatch(setPlatformSelected(platform));

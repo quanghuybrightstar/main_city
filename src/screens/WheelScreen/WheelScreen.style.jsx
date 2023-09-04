@@ -22,9 +22,10 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
 const WheelContainer = styled(FlexBetweenStyle)`
   background: url(${`${SrcImage.BaseURL}/bgSide.png`}) no-repeat top center /
     cover;
-  width: ${1915 * baseWidth}px;
-  height: ${1030 * baseWidth}px;
+  width: ${1895 * baseWidth}px;
+  height: ${985 * baseWidth}px;
   position: relative;
+  overflow-y: hidden;
 `;
 
 const BoxTickets = styled(FlexColStyle)`

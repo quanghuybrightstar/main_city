@@ -3,6 +3,7 @@ import { FlexRowStyle, BaseTitleGame } from "../../styles/GlobalStyle.style";
 import SrcImage from "../../constants/SrcImage";
 import SmartBaseScreen from "../../base/SmartScreenBase";
 import { BoxBorderPuzzle, TextTypePuzzle } from "./BoxPuzzle.style";
+import API from "../../apis/APIConstant";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -21,6 +22,7 @@ const BoxPuzzle = ({
   heightBoxProps,
   isTextType,
   marginBoxProps,
+  imgLink,
 }) => {
   return (
     <BoxBorderPuzzle
@@ -29,9 +31,13 @@ const BoxPuzzle = ({
       borderColorProps={borderColorPropsProps}
       marginBoxProps={marginBoxProps}
     >
-      {exchange.typeGift ? (
+      {exchange.item_name || exchange.typeGift || exchange.item_order_name ? (
         <ImageBase
-          src={`${SrcImage.SrcFactoryScreen}/${exchange?.typeGift}/puzzle${typePuzzle}.png`}
+          src={
+            imgLink
+              ? `${API.baseURL}${imgLink}`
+              : `${SrcImage.SrcFactoryScreen}/${exchange?.typeGift}/puzzle${typePuzzle}.png`
+          }
           alt="Puzzle Image"
           widthProps={widthProps}
           heightProps={heightProps}

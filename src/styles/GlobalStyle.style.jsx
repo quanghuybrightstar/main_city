@@ -43,7 +43,7 @@ const RightContainer = styled(FlexColStyle)`
   background: url(${`${SrcImage.BaseURL}/bgRight.png`}) no-repeat top center /
     cover;
   width: ${1300 * baseWidth}px;
-  height: ${1000 * baseWidth}px;
+  height: ${980 * baseWidth}px;
   margin-top: ${75 * baseWidth}px;
   margin-right: ${50 * baseWidth}px;
   position: relative;
@@ -62,6 +62,16 @@ const BaseTextSize38 = styled.div`
 
 const BaseTextSize20 = styled.div`
   font-size: ${smFontSize * 20}px;
+  color: #fff;
+`;
+
+const BaseTextSize24 = styled.div`
+  font-size: ${smFontSize * 24}px;
+  color: #fff;
+`;
+
+const BaseTextSize22 = styled.div`
+  font-size: ${smFontSize * 22}px;
   color: #fff;
 `;
 
@@ -98,9 +108,15 @@ const TextUnderline = styled.div`
   margin-left: ${4 * baseWidth}px;
 `;
 
-const RemainText = ({ countRemaining }) => (
+const RemainText = ({ countRemaining, widthProps }) => (
   <FlexRowStyle>
-    <div style={{ fontSize: smFontSize * 18, display: "flex" }}>
+    <div
+      style={{
+        fontSize: smFontSize * 18,
+        display: "flex",
+        width: widthProps,
+      }}
+    >
       Bạn có <TextUnderline>{countRemaining}</TextUnderline>
     </div>
   </FlexRowStyle>
@@ -126,6 +142,8 @@ export {
   BaseTextSize20,
   BaseTextSize18,
   BaseTextSize28,
+  BaseTextSize24,
+  BaseTextSize22,
   ErrorText,
   BaseTitleGame,
   RemainText,

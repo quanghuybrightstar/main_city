@@ -1,4 +1,5 @@
 import SmartBaseScreen from "../../base/SmartScreenBase";
+import LazyLoad from "react-lazyload";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -16,6 +17,7 @@ const ImageBase = ({
   objectFitProps,
 }) => (
   <img
+    loading="lazy"
     src={src}
     alt={alt}
     style={{

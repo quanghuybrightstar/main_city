@@ -21,15 +21,39 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
 const FactoryContainer = styled(FlexBetweenStyle)`
   background: url(${`${SrcImage.BaseURL}/bgSide.png`}) no-repeat top center /
     cover;
-  width: ${1915 * baseWidth}px;
-  height: ${1030 * baseWidth}px;
+  width: ${1895 * baseWidth}px;
+  height: ${985 * baseWidth}px;
   position: relative;
+  overflow-y: hidden;
 `;
 
 const BoxRightHeader = styled(FlexRowStyle)``;
 
 const ListGift = styled(FlexColStyle)`
   padding-top: ${baseWidth * 20}px;
+  max-height: ${730 * baseWidth}px;
+  overflow-y: scroll; /* width */
+  behavior: smooth;
+  &::-webkit-scrollbar {
+    width: ${12 * baseWidth}px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    // background: rgba(0, 0, 0, 0.3);
+    border-radius: ${12 * baseWidth}px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #ffff00;
+    border-radius: ${12 * baseWidth}px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #e6e600;
+  }
 `;
 
 const BoxPuzzle = styled(FlexRowStyle)`

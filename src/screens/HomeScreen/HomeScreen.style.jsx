@@ -26,8 +26,8 @@ let baseWidth = SmartBaseScreen.smBaseWidth,
 const HomeStyleContainer = styled(FlexBetweenStyle)`
   background: url(${`${SrcImage.SrcHomeScreen}/bgHome.png`}) no-repeat top
     center / cover;
-  width: ${1920 * baseWidth}px;
-  height: ${1030 * baseWidth}px;
+  width: ${1910 * baseWidth}px;
+  height: ${990 * baseWidth}px;
   position: relative;
 `;
 
@@ -63,43 +63,43 @@ const RightStyleContainer = styled(FlexColStyle)`
 // Racer
 const RacerContainer = styled(FlexColStyle)`
   position: absolute;
-  top: ${baseWidth * 150}px;
-  left: ${baseWidth * 820}px;
+  top: ${baseWidth * 110}px;
+  left: ${baseWidth * 810}px;
 `;
 
 // Building
 const BuildingContainer = styled(FlexColStyle)`
   position: absolute;
-  top: ${baseWidth * 50}px;
-  left: ${baseWidth * 1200}px;
+  top: ${baseWidth * 30}px;
+  left: ${baseWidth * 1190}px;
 `;
 
 // Monopoly
 const MonopolyContainer = styled(FlexColStyle)`
   position: absolute;
-  top: ${baseWidth * 18}px;
-  left: ${baseWidth * 1550}px;
+  top: ${baseWidth * 5}px;
+  left: ${baseWidth * 1540}px;
 `;
 
 // Wheel
 const WheelContainer = styled(FlexColStyle)`
   position: absolute;
-  top: ${baseWidth * 625}px;
-  left: ${baseWidth * 670}px;
+  top: ${baseWidth * 590}px;
+  left: ${baseWidth * 660}px;
 `;
 
 // Square
 const SquareContainer = styled(FlexColStyle)`
   position: absolute;
-  top: ${baseWidth * 600}px;
-  left: ${baseWidth * 1090}px;
+  top: ${baseWidth * 580}px;
+  left: ${baseWidth * 1080}px;
 `;
 
 // Factory
 const FactoryContainer = styled(FlexColStyle)`
   position: absolute;
-  top: ${baseWidth * 690}px;
-  left: ${baseWidth * 1520}px;
+  top: ${baseWidth * 660}px;
+  left: ${baseWidth * 1515}px;
 `;
 
 export {

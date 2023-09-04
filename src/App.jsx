@@ -21,6 +21,15 @@ import GameScreen from "./screens/GameScreen/GameScreen";
 function App() {
   return (
     <Provider store={store}>
+      <div
+        style={{
+          position: "relative",
+        }}
+      >
+        <div className="loading hide">
+          <div className="loader"></div>
+        </div>
+      </div>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <Routes>

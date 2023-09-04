@@ -21,9 +21,10 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
 const BuildingContainer = styled(FlexBetweenStyle)`
   background: url(${`${SrcImage.BaseURL}/bgSide.png`}) no-repeat top center /
     cover;
-  width: ${1915 * baseWidth}px;
-  height: ${1030 * baseWidth}px;
+  width: ${1895 * baseWidth}px;
+  height: ${985 * baseWidth}px;
   position: relative;
+  overflow-y: hidden;
 `;
 
 const ContentRightBuilding = styled(FlexColStyle)`
@@ -57,7 +58,7 @@ const ListVouchers = styled(FlexRowStyle)`
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
+    // background: rgba(0, 0, 0, 0.3);
     border-radius: ${12 * baseWidth}px;
   }
 

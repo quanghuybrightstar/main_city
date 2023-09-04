@@ -1,7 +1,7 @@
 const TypeTime = {
-  ALL_TIME: "ALL_TIME",
-  THIS_WEEK: "THIS_WEEK",
-  THIS_MONTH: "THIS_MONTH",
+  ALL_TIME: "all",
+  THIS_WEEK: "week",
+  THIS_MONTH: "month",
 };
 
 export default TypeTime;

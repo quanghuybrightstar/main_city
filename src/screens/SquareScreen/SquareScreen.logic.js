@@ -1,8 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import TypeTime from "../../constants/TypeTime";
 import { useDispatch, useSelector } from "react-redux";
-import getPlatformDetail from "../../base/GetPlatformDetail";
+import {
+  getPlatformDetail,
+  getSquareDetail,
+} from "../../base/GetPlatformDetail";
 import { setDetailPlatform } from "../../redux/actions/actions";
+import { ContentSlection } from "../../components/MenuSelection/MenuSelection.style";
+import SmartBaseScreen from "../../base/SmartScreenBase";
+
+SmartBaseScreen.baseSetup();
+const baseWidth = SmartBaseScreen.smBaseWidth;
 
 export const squareScreenLogic = (props) => {
   const _dispatch = useDispatch();
@@ -16,12 +24,13 @@ export const squareScreenLogic = (props) => {
 
   const [dataRankList, setDataRankList] = useState([]);
   useEffect(() => {
-    const getDetailPlatform = async () => {
+    const getDetailSquare = async () => {
       if (platformSelected.platform) {
-        const detail = await getPlatformDetail(
+        const detail = await getSquareDetail(
           platformSelected.platform,
           pageCurrent,
-          10
+          10,
+          typeTime
         );
         _dispatch(setDetailPlatform(detail.slice(0, -1)));
         setDataRankList(detail.slice(0, -1));
@@ -31,7 +40,7 @@ export const squareScreenLogic = (props) => {
       }
     };
 
-    getDetailPlatform();
+    getDetailSquare();
   }, []);
 
   // const [dataRankList, setDataRankList] = useState([
@@ -87,20 +96,43 @@ export const squareScreenLogic = (props) => {
   // ]);
 
   // Func handle change type time
-  const handleChangeTypeTime = (typeSelected) => {
+
+  const handleChangeTypeTime = async (typeSelected) => {
+    setPageCurrent(1);
     setTypeTime(typeSelected);
+    const detail = await getSquareDetail(
+      platformSelected.platform,
+      1,
+      10,
+      typeSelected
+    );
+
+    if (detail?.slice(0, -1)?.length > 0) {
+      console.log(detail);
+      _dispatch(setDetailPlatform(detail.slice(0, -1)));
+      setDataRankList(detail.slice(0, -1));
+      detail.map((data) => {
+        data.is_user == 1 && setDataRankUser(data);
+      });
+    }
   };
 
   // Scroll Content
   const handleScrollContent = async () => {
     if (contentRef.current) {
       const { scrollTop, clientHeight, scrollHeight } = contentRef.current;
-      if (scrollTop + clientHeight == scrollHeight) {
-        const detail = await getPlatformDetail(
+      console.log(scrollHeight);
+
+      if (scrollHeight - scrollTop == clientHeight) {
+        console.log("scrolled");
+        const detail = await getSquareDetail(
           platformSelected.platform,
           pageCurrent + 1,
-          10
+          10,
+          typeTime
         );
+
+        console.log(detail);
 
         if (detail?.slice(0, -1)?.length > 0) {
           console.log(detail);

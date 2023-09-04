@@ -1,151 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import API from "../../apis/APIConstant";
+import APIBase from "../../base/APIBase";
+import { getPlatformDetail } from "../../base/GetPlatformDetail";
 
 export const moreExchangeLogic = (props) => {
   const _navigate = useNavigate();
+  const platformSelected = useSelector((state) => state.platformSelected);
+
+  const [allPuzzles, setAllPuzzles] = useState();
   const [exchangeGive, setExchangeGive] = useState({});
   const [exchangeGet, setExchangeGet] = useState({});
   const [typeSelecting, setTypeSelecting] = useState("get");
-  const [allPuzzle, setAllPuzzle] = useState([
-    {
-      id: 1,
-      typeGift: "lambor",
-      count_puzzle: 2,
-      type: "A",
-    },
-    {
-      id: 2,
-      typeGift: "lambor",
-      count_puzzle: 0,
-      type: "B",
-    },
-    {
-      id: 3,
-      typeGift: "lambor",
-      count_puzzle: 1,
-      type: "C",
-    },
-    {
-      id: 4,
-      typeGift: "lambor",
-      count_puzzle: 0,
-      type: "D",
-    },
-    {
-      id: 5,
-      typeGift: "lambor",
-      count_puzzle: 0,
-      type: "E",
-    },
-    {
-      id: 6,
-      typeGift: "lambor",
-      count_puzzle: 0,
-      type: "F",
-    },
-    {
-      id: 7,
-      typeGift: "lambor",
-      count_puzzle: 3,
-      type: "G",
-    },
-    {
-      id: 8,
-      typeGift: "lambor",
-      count_puzzle: 0,
-      type: "H",
-    },
-    {
-      id: 9,
-      typeGift: "lambor",
-      count_puzzle: 0,
-      type: "I",
-    },
-    {
-      id: 10,
-      typeGift: "lambor",
-      count_puzzle: 0,
-      type: "K",
-    },
-    {
-      id: 11,
-      typeGift: "vinhome",
-      count_puzzle: 2,
-      type: "A",
-    },
-    {
-      id: 12,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "B",
-    },
-    {
-      id: 13,
-      typeGift: "vinhome",
-      count_puzzle: 1,
-      type: "C",
-    },
-    {
-      id: 14,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "D",
-    },
-    {
-      id: 15,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "E",
-    },
-    {
-      id: 16,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "F",
-    },
-    {
-      id: 17,
-      typeGift: "vinhome",
-      count_puzzle: 3,
-      type: "G",
-    },
-    {
-      id: 18,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "H",
-    },
-    {
-      id: 19,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "I",
-    },
-    {
-      id: 20,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "K",
-    },
-    {
-      id: 21,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "K",
-    },
-    {
-      id: 22,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "K",
-    },
-    {
-      id: 23,
-      typeGift: "vinhome",
-      count_puzzle: 0,
-      type: "K",
-    },
-  ]);
+
+  useEffect(() => {
+    const getDetailPlatform = async () => {
+      if (platformSelected.platform) {
+        const detail = await getPlatformDetail(platformSelected.platform);
+        const giftPuzzle = detail.filter(
+          (item) => item.item_category != "diamond"
+        );
+        setAllPuzzles(giftPuzzle);
+      }
+    };
+
+    getDetailPlatform();
+  }, []);
 
   const handleGoBack = () => {
     _navigate(-1);
@@ -160,7 +41,38 @@ export const moreExchangeLogic = (props) => {
     if (typeExchange == "get") {
       setExchangeGet(puzzle);
     } else if (typeExchange == "give") {
-      setExchangeGive(puzzle);
+      if (puzzle.quantity_available > 0) {
+        setExchangeGive(puzzle);
+      } else {
+        alert("Vật phẩm không có đủ số lượng để trao đổi!");
+      }
+    }
+  };
+
+  const handleUploadExchange = async () => {
+    if (
+      Object.keys(exchangeGet).length != 0 &&
+      Object.keys(exchangeGive).length != 0
+    ) {
+      try {
+        let dataBody = {
+          item_order_id: exchangeGive.platform_item_id,
+          item_receive_id: exchangeGet.platform_item_id,
+        };
+        let uriApi = `${API.baseURL}${API.uploadExchange}`;
+        const result = await APIBase.apiCaller("POST", uriApi, dataBody);
+        if (result?.status) {
+          // console.log(result);
+          console.log(result.data);
+          _navigate(-1);
+        } else {
+          alert(result.msg);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      alert("Vui lòng chọn đầy đủ mảnh ghép trao đổi");
     }
   };
 
@@ -168,9 +80,10 @@ export const moreExchangeLogic = (props) => {
     exchangeGive,
     exchangeGet,
     typeSelecting,
-    allPuzzle,
+    allPuzzles,
     handleChangePuzzle,
     handleGoBack,
     handleSelectPuzzle,
+    handleUploadExchange,
   };
 };

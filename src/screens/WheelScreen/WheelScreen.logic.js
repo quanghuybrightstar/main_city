@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import TypeTime from "../../constants/TypeTime";
 import { useDispatch, useSelector } from "react-redux";
-import getPlatformDetail from "../../base/GetPlatformDetail";
+import { getPlatformDetail } from "../../base/GetPlatformDetail";
 import { setDetailPlatform } from "../../redux/actions/actions";
 import SmartBaseScreen from "../../base/SmartScreenBase";
 

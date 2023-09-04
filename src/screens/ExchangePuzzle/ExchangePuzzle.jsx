@@ -4,10 +4,8 @@ import {
   ExchangeHeader,
   MoreExchange,
   TextTime,
-  BoxBorderPuzzle,
   ListMyExchange,
   TextBtnShadow,
-  TextTypePuzzle,
   ContentExchange,
 } from "./ExchangePuzzle.style";
 import { exchangePuzzleLogic } from "./ExchangePuzzle.logic";
@@ -17,6 +15,8 @@ import {
   RightContainer,
   HeaderRight,
   BaseTextSize20,
+  BaseTextSize24,
+  BaseTextSize22,
   ContentRightContainer,
 } from "../../styles/GlobalStyle.style";
 import SrcImage from "../../constants/SrcImage";
@@ -29,17 +29,20 @@ import ButtonBase from "../../components/Button/Button";
 import PseudoClick from "../../components/PseudoClick/PseudoClick";
 import ColorBase from "../../styles/Color";
 import BoxPuzzle from "../../components/BoxPuzzle/BoxPuzzle";
+import { validateTimer } from "../../utils";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
-  baseHeight = SmartBaseScreen.smBaseHeight,
-  perWidth = SmartBaseScreen.smPercentWidth,
-  perHeight = SmartBaseScreen.smPercentHeight,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const ExchangePuzzle = (props) => {
-  let { myExchangePuzzle, dataRequiredExchange, handleGoBack, handleNavigate } =
-    exchangePuzzleLogic(props);
+  let {
+    myExchangePuzzle,
+    dataRequiredExchange,
+    handleGoBack,
+    handleNavigate,
+    handleExchange,
+  } = exchangePuzzleLogic(props);
 
   const renderExchange = (exchange) => {
     return (
@@ -54,6 +57,7 @@ const ExchangePuzzle = (props) => {
       >
         <FlexRowStyle>
           <BoxPuzzle
+            imgLink={exchange.item_order_image}
             isTextType={true}
             widthBoxProps={94}
             heightBoxProps={94}
@@ -61,7 +65,7 @@ const ExchangePuzzle = (props) => {
             widthProps={81}
             heightProps={81}
             borderColorPropsProps={ColorBase.blandBlue}
-            typePuzzle={exchange?.typePuzzleGive}
+            typePuzzle={exchange?.item_order_name}
           />
 
           <ImageBase
@@ -73,6 +77,7 @@ const ExchangePuzzle = (props) => {
           />
 
           <BoxPuzzle
+            imgLink={exchange.item_response_image}
             isTextType={true}
             widthBoxProps={94}
             heightBoxProps={94}
@@ -80,30 +85,32 @@ const ExchangePuzzle = (props) => {
             widthProps={81}
             heightProps={81}
             borderColorPropsProps={ColorBase.blandBlue}
-            typePuzzle={exchange?.typePuzzleGet}
+            typePuzzle={exchange?.item_response_response}
           />
         </FlexRowStyle>
 
         <TextTime>
-          <BaseTextSize20>
-            {exchange?.user_upload && exchange.user_upload}
-          </BaseTextSize20>
-          Đăng ngày {exchange.time_upload}
+          <BaseTextSize22>
+            {exchange?.user_order_name &&
+              exchange?.collection == "global" &&
+              exchange.user_order_name}
+          </BaseTextSize22>
+          Đăng ngày {validateTimer(exchange.created_at)}
         </TextTime>
 
         <BaseTextSize20>
-          {exchange?.count_remaining > 0
-            ? `Bạn có ${exchange?.count_remaining} mảnh này`
+          {exchange?.quantity_available > 0
+            ? `Bạn có ${exchange?.quantity_available} mảnh này`
             : `Bạn chưa có mảnh này`}
         </BaseTextSize20>
 
-        {exchange?.is_mine == 1 ? (
-          exchange?.is_completed == 1 ? (
+        {exchange?.collection == "local" ? (
+          exchange?.status == 1 ? (
             <ButtonBase
               borderRadiusProps={baseWidth * 10}
               widthProps={100}
               heightProps={45}
-              onClick={() => console.log("Nhan")}
+              onClick={() => handleExchange(exchange, "accept")}
               bgColorProps={ColorBase.bgAccept}
             >
               <TextBtnShadow>Nhận</TextBtnShadow>
@@ -113,19 +120,19 @@ const ExchangePuzzle = (props) => {
               borderRadiusProps={baseWidth * 10}
               widthProps={100}
               heightProps={45}
-              onClick={() => console.log("Huy")}
+              onClick={() => handleExchange(exchange, "cancel")}
               bgColorProps={ColorBase.bgCancel}
             >
               <TextBtnShadow>Hủy</TextBtnShadow>
             </ButtonBase>
           )
         ) : (
-          exchange?.is_completed == 0 && (
+          exchange?.status == 0 && (
             <ButtonBase
               borderRadiusProps={baseWidth * 10}
               widthProps={100}
               heightProps={45}
-              onClick={() => console.log("Doi")}
+              onClick={() => handleExchange(exchange, "request")}
             >
               <TextBtnShadow>Đổi</TextBtnShadow>
             </ButtonBase>

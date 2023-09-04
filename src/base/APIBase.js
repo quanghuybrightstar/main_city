@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 
+const $ = document.querySelector.bind(document);
+
 class APIBase {
   static access_token = localStorage.getItem("access_token");
 
@@ -11,6 +13,7 @@ class APIBase {
 
   static apiCaller(method, url, data, otherHeaders) {
     return new Promise((resolve, reject) => {
+      $(".loading").classList.remove("hide");
       const headers = {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -26,9 +29,11 @@ class APIBase {
         data,
       })
         .then((response) => {
+          $(".loading").classList.add("hide");
           resolve(response.data);
         })
         .catch((error) => {
+          $(".loading").classList.remove("hide");
           reject(error);
           if (error.message == "Network Error") {
             alert("Vui lòng kiểm tra kết nối Internet");

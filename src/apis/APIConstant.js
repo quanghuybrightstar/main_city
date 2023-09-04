@@ -5,6 +5,12 @@ const API = {
   achiveList: "api/PG001",
   detailPlatform: "api/DP001",
   listExchange: "api/EC002",
+  squareDetail: "api/DP002",
+  missionList: "api/GM001",
+  itemCanBuy: "api/SI001",
+  buyItem: "api/SR001",
+  uploadExchange: "api/EC001",
+  doExchange: "api/EC003",
 };
 
 export default API;

@@ -70,7 +70,7 @@ const BuildingScreen = (props) => {
           padding: `${baseWidth * 10}px ${baseWidth * 30}px ${
             baseWidth * 10
           }px ${baseWidth * 20}px `,
-          width: baseWidth * 450,
+          width: baseWidth * 420,
           height: baseWidth * 160,
           background: `url(${SrcImage.BaseURL}/borderBlue.png) no-repeat top center /contain`,
           margin: `0 ${baseWidth * 30}px ${baseWidth * 30}px 0`,

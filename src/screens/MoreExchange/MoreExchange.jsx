@@ -38,16 +38,17 @@ const MoreExchange = (props) => {
     exchangeGive,
     typeSelecting,
     exchangeGet,
-    allPuzzle,
+    allPuzzles,
     handleGoBack,
     handleChangePuzzle,
     handleSelectPuzzle,
+    handleUploadExchange,
   } = moreExchangeLogic(props);
 
   const renderPuzzleItem = (puzzle) => {
     return (
       <div
-        key={puzzle.id}
+        key={puzzle.item_id}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -56,8 +57,9 @@ const MoreExchange = (props) => {
         }}
       >
         <PseudoClick onClick={() => handleSelectPuzzle(typeSelecting, puzzle)}>
-          {((exchangeGet.id == puzzle.id && typeSelecting == "get") ||
-            (exchangeGive.id == puzzle.id && typeSelecting == "give")) && (
+          {((exchangeGet.item_id == puzzle.item_id && typeSelecting == "get") ||
+            (exchangeGive.item_id == puzzle.item_id &&
+              typeSelecting == "give")) && (
             <div
               style={{
                 position: "absolute",
@@ -77,6 +79,7 @@ const MoreExchange = (props) => {
             </div>
           )}
           <BoxPuzzle
+            imgLink={puzzle.item_image}
             isTextType={true}
             widthBoxProps={86}
             heightBoxProps={86}
@@ -84,12 +87,14 @@ const MoreExchange = (props) => {
             widthProps={71}
             heightProps={71}
             borderColorPropsProps={
-              (exchangeGet.id == puzzle.id && typeSelecting == "get") ||
-              (exchangeGive.id == puzzle.id && typeSelecting == "give")
+              (exchangeGet.item_id == puzzle.item_id &&
+                typeSelecting == "get") ||
+              (exchangeGive.item_id == puzzle.item_id &&
+                typeSelecting == "give")
                 ? ColorBase.yellowPrimary
                 : ColorBase.blandBlue
             }
-            typePuzzle={puzzle?.type}
+            typePuzzle={puzzle?.item_name}
             marginBoxProps={`${5 * baseWidth}px ${20 * baseWidth}px`}
           />
         </PseudoClick>
@@ -101,7 +106,7 @@ const MoreExchange = (props) => {
             textShadow: "2px 2px 5px black",
           }}
         >
-          Sở hữu {puzzle.count_puzzle}
+          Sở hữu {puzzle.quantity_available}
         </div>
       </div>
     );
@@ -140,6 +145,7 @@ const MoreExchange = (props) => {
               <PuzzleGetContainer>
                 <PseudoClick onClick={() => handleChangePuzzle("get")}>
                   <BoxPuzzle
+                    imgLink={exchangeGet.item_image}
                     widthBoxProps={104}
                     heightBoxProps={104}
                     exchange={exchangeGet}
@@ -194,6 +200,7 @@ const MoreExchange = (props) => {
               <PuzzleGetContainer>
                 <PseudoClick onClick={() => handleChangePuzzle("give")}>
                   <BoxPuzzle
+                    imgLink={exchangeGive.item_image}
                     widthBoxProps={104}
                     heightBoxProps={104}
                     exchange={exchangeGive}
@@ -240,7 +247,7 @@ const MoreExchange = (props) => {
           </ProcessExchangeContainer>
 
           <ListPuzzleAll>
-            {allPuzzle.map((puzzle) => renderPuzzleItem(puzzle))}
+            {allPuzzles?.map((puzzle) => renderPuzzleItem(puzzle))}
           </ListPuzzleAll>
 
           <div
@@ -265,7 +272,7 @@ const MoreExchange = (props) => {
               borderRadiusProps={baseWidth * 10}
               widthProps={150}
               heightProps={55}
-              onClick={() => console.log("Nhan")}
+              onClick={() => handleUploadExchange()}
               bgColorProps={ColorBase.bgAccept}
               marginProps={`${25 * baseWidth}px ${15 * baseWidth}px`}
             >

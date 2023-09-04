@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import TypeTime from "../../constants/TypeTime";
 import { useDispatch, useSelector } from "react-redux";
-import getPlatformDetail from "../../base/GetPlatformDetail";
-import { setDetailPlatform } from "../../redux/actions/actions";
+import { getPlatformDetail } from "../../base/GetPlatformDetail";
+import { setDetailPlatform, setAllPuzzles } from "../../redux/actions/actions";
 import { useNavigate } from "react-router-dom";
-import SelectionType from "../../constants/Selection";
 
 export const factoryLogic = (props) => {
   const _dispatch = useDispatch();
@@ -155,7 +154,10 @@ export const factoryLogic = (props) => {
       if (platformSelected.platform) {
         const detail = await getPlatformDetail(platformSelected.platform);
         _dispatch(setDetailPlatform(detail));
-        const giftPuzzle = detail;
+        const giftPuzzle = detail.filter(
+          (item) => item.item_category != "diamond"
+        );
+        _dispatch(setAllPuzzles(giftPuzzle));
         giftPuzzle.map((puzzle, index, array) => {
           if (puzzle.item_name == "A") {
             const newListPuzzle = array.slice(index, index + 10);

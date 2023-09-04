@@ -128,7 +128,7 @@ const FactoryScreen = (props) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: `${baseWidth * 30}px ${baseWidth * 150}px ${
+          padding: `${baseWidth * 30}px ${baseWidth * 120}px ${
             baseWidth * 60
           }px ${baseWidth * 50}px`,
           position: "relative",

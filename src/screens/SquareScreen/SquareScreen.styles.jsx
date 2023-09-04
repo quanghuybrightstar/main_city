@@ -11,16 +11,14 @@ import styled from "styled-components";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
-  baseHeight = SmartBaseScreen.smBaseHeight,
-  perWidth = SmartBaseScreen.smPercentWidth,
-  perHeight = SmartBaseScreen.smPercentHeight,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const SquareStyleContainer = styled(FlexBetweenStyle)`
   background: url(${`${SrcImage.BaseURL}/bgSide.png`}) no-repeat top center /
     cover;
-  width: ${1915 * baseWidth}px;
-  height: ${1030 * baseWidth}px;
+  width: ${1895 * baseWidth}px;
+  height: ${985 * baseWidth}px;
+  overflow-y: hidden;
 `;
 
 const BoxContainer = styled(FlexBetweenStyle)`
@@ -49,20 +47,19 @@ const TextBtnColorStyle = styled(TextBtnColor)``;
 const ContentRightContainer = styled(FlexColStyle)`
   align-items: center;
   margin: 0 ${65 * baseWidth}px;
-  // margin-top: ${60 * baseWidth}px;
   padding-top: ${20 * baseWidth}px;
   position: relative;
   behavior: smooth;
 
-  max-height: ${710 * baseWidth}px;
   overflow-y: scroll; /* width */
+  height: ${650 * baseWidth}px;
   &::-webkit-scrollbar {
     width: ${12 * baseWidth}px;
   }
 
   /* Track */
   &::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.3);
+    // background: rgba(0, 0, 0, 0.3);
     border-radius: ${12 * baseWidth}px;
   }
 
@@ -80,7 +77,7 @@ const ContentRightContainer = styled(FlexColStyle)`
 
 const InforTopRank = styled(FlexRowStyle)`
   position: absolute;
-  top: ${15 * baseWidth}px;
+  top: ${10 * baseWidth}px;
 `;
 
 const RankSecondContainer = styled(FlexColStyle)`
@@ -115,7 +112,7 @@ const NumOfDiamond = styled.div`
 
 // Item Rank Lower
 const ListRankLower = styled(FlexColStyle)`
-  margin-top: ${5 * baseWidth}px;
+  // margin-top: ${5 * baseWidth}px;
 `;
 
 const IconArrowRight = styled(FlexRowStyle)`

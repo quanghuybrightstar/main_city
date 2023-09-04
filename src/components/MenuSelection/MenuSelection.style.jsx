@@ -22,6 +22,29 @@ const MenuContainer = styled(FlexColStyle)`
 
 const ListSelection = styled(FlexColStyle)`
   margin-top: ${2 * baseWidth}px;
+
+  overflow-y: scroll; /* width */
+  max-height: ${685 * baseWidth}px;
+  &::-webkit-scrollbar {
+    width: ${12 * baseWidth}px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    // background: rgba(0, 0, 0, 0.3);
+    border-radius: ${12 * baseWidth}px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #ffff00;
+    border-radius: ${12 * baseWidth}px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #e6e600;
+  }
 `;
 
 const ContentSlection = styled(FlexColStyle)`

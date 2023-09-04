@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import API from "../../apis/APIConstant";
-import getPlatformDetail from "../../base/GetPlatformDetail";
+import {getPlatformDetail} from "../../base/GetPlatformDetail";
 import { setDetailPlatform } from "../../redux/actions/actions";
 
 export const buildingLogic = (props) => {
