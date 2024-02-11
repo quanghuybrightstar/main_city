@@ -4,6 +4,7 @@ const ActionsConstant = {
   SET_PLATFORM_SELECTED: "SET_PLATFORM_SELECTED",
   SET_DETAIL_PLATFORM: "SET_DETAIL_PLATFORM",
   SET_ALL_PUZZLES: "SET_ALL_PUZZLES",
+  LOG_OUT: "LOG_OUT",
 };
 
 export default ActionsConstant;

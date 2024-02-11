@@ -24,7 +24,7 @@ export const homeScreenLogic = (props) => {
       const result = await APIBase.apiCaller("GET", uriApi);
       if (result.status) {
         setDataPlatformList(result.data);
-        console.log(result.data);
+        // console.log(result.data);
       }
     };
     getDataFlatformList();
@@ -38,7 +38,7 @@ export const homeScreenLogic = (props) => {
   }, [APIBase.access_token]);
 
   const handleNavigate = (platform) => {
-    console.log(APIBase.access_token);
+    // console.log(APIBase.access_token);
     if (APIBase.access_token == "" || !APIBase.access_token) {
       setIsVisibleLogin(true);
     } else {
@@ -52,6 +52,8 @@ export const homeScreenLogic = (props) => {
   const handleCloseModal = () => {
     setIsVisibleLogin(false);
   };
+
+  //
 
   return {
     dataPlatformList,

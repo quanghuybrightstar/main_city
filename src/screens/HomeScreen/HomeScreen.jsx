@@ -11,6 +11,13 @@ import {
   WheelContainer,
   SquareContainer,
   FactoryContainer,
+  WheelRotate,
+  FactoryLeft2,
+  FactoryLight,
+  FactoryLeft3,
+  FactoryRight1,
+  FactoryRight2,
+  ImgTitleContainer,
 } from "./HomeScreen.style";
 import SmartBaseScreen from "../../base/SmartScreenBase";
 import { homeScreenLogic } from "./HomeScreen.logic";
@@ -18,11 +25,11 @@ import { FlexCenterStyle } from "../../styles/GlobalStyle.style";
 import SrcImage from "../../constants/SrcImage";
 import { HeaderLogo } from "../../components/Header";
 import { Link } from "react-router-dom";
-import ColorBase from "../../styles/Color";
 import TextPlatform from "../../components/TextPlatform/TextPlatfform";
 import ImageBase from "../../components/Image/ImageBase";
 import ButtonBase from "../../components/Button/Button";
 import ModalLogin from "../../components/ModalLogin/ModalLogin";
+import { keyframes } from "styled-components";
 
 SmartBaseScreen.baseSetup();
 
@@ -57,18 +64,21 @@ const HomeScreen = (props) => {
       <ModalLogin isVisible={isVisibleLogin} onClickClose={handleCloseModal} />
       <LeftStyleContainer>
         <HeaderLogoContainer>
-          <HeaderLogo widthLogo={200} heightLogo={200} />
+          <HeaderLogo widthLogo={111} heightLogo={71} />
         </HeaderLogoContainer>
 
-        <ImageBase
-          src={`${SrcImage.SrcHomeScreen}/title.png`}
-          alt="Title Image"
-          widthProps={681}
-          heightProps={121}
-        />
+        <ImgTitleContainer>
+          <ImageBase
+            src={`${SrcImage.SrcHomeScreen}/title.png`}
+            alt="Title Image"
+            widthProps={681}
+            heightProps={121}
+          />
+        </ImgTitleContainer>
 
         <BoxText>
           <div
+            className="font_jura"
             style={{
               fontSize: smFontSize * 22,
               color: "white",
@@ -94,7 +104,7 @@ const HomeScreen = (props) => {
               heightProps={65}
               borderProps={"1px solid #fff"}
             >
-              <TextBtn>Khám phá ngay</TextBtn>
+              <TextBtn className="font_jura_bold">Khám phá ngay</TextBtn>
             </ButtonBase>
           </FlexCenterStyle>
         </div>
@@ -103,22 +113,70 @@ const HomeScreen = (props) => {
       {dataPlatformList && (
         <RightStyleContainer>
           <RacerContainer>
-            <ImageBase
-              src={`${SrcImage.SrcHomeScreen}/racer.png`}
-              alt="Racer Image"
-              widthProps={310}
-              heightProps={288}
-            />
+            <div
+              style={{
+                position: "relative",
+                top: 50 * baseWidth,
+                left: 60 * baseWidth,
+                display: "flex",
+                alignItems: "center",
+                zIndex: 2,
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  top: -30 * baseWidth,
+                  left: -15 * baseWidth,
+                }}
+              >
+                <ImageBase
+                  src={`${SrcImage.SrcHomeScreen}/side_bg_racer.png`}
+                  alt="Racer Image"
+                  widthProps={235}
+                  heightProps={211}
+                />
+              </div>
+              <div
+                style={{
+                  position: "relative",
+                  top: 0 * baseWidth,
+                  left: -13 * baseWidth,
+                }}
+              >
+                <ImageBase
+                  transformProps="scaleX(-1)"
+                  src={`${SrcImage.SrcHomeScreen}/racer_gif.gif`}
+                  alt="Racer Image"
+                  widthProps={335}
+                  heightProps={197}
+                />
+              </div>
+            </div>
+            <div
+              style={{
+                position: "relative",
+                left: -5 * baseWidth,
+                top: -15 * baseWidth,
+              }}
+            >
+              <ImageBase
+                src={`${SrcImage.SrcHomeScreen}/box.png`}
+                alt="Racer Image"
+                widthProps={265}
+                heightProps={140}
+              />
 
-            <TextPlatform topProps={168}>
-              {dataPlatformList[0]?.name.toUpperCase()}
-            </TextPlatform>
+              <TextPlatform topProps={40} leftProps={60}>
+                {dataPlatformList[0]?.name.toUpperCase()}
+              </TextPlatform>
+            </div>
             <FlexCenterStyle>
               <ButtonBase
                 onClick={() => handleNavigate(dataPlatformList[0])}
                 borderProps={"1px solid #fff"}
               >
-                <TextBtn>Race</TextBtn>
+                <TextBtn className="font_jura_bold">Race</TextBtn>
               </ButtonBase>
             </FlexCenterStyle>
           </RacerContainer>
@@ -140,7 +198,7 @@ const HomeScreen = (props) => {
                 borderProps={"1px solid #fff"}
                 onClick={() => handleNavigate(dataPlatformList[1])}
               >
-                <TextBtn>Enter</TextBtn>
+                <TextBtn className="font_jura_bold">Enter</TextBtn>
               </ButtonBase>
             </FlexCenterStyle>
           </BuildingContainer>
@@ -162,28 +220,82 @@ const HomeScreen = (props) => {
                 onClick={() => handleNavigate(dataPlatformList[2])}
                 borderProps={"1px solid #fff"}
               >
-                <TextBtn>Play</TextBtn>
+                <TextBtn className="font_jura_bold">Play</TextBtn>
               </ButtonBase>
             </FlexCenterStyle>
           </MonopolyContainer>
 
           <WheelContainer>
-            <ImageBase
-              src={`${SrcImage.SrcHomeScreen}/wheel.png`}
-              alt="Wheel Image"
-              widthProps={310}
-              heightProps={323}
-            />
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                top: 30 * baseWidth,
+                zIndex: 2,
+              }}
+            >
+              <div
+                style={{
+                  position: "relative",
+                  top: 3 * baseWidth,
+                }}
+              >
+                <WheelRotate>
+                  <ImageBase
+                    src={`${SrcImage.SrcHomeScreen}/wheel.png`}
+                    alt="Wheel Image"
+                    widthProps={162}
+                    heightProps={162}
+                    zIndexProps={1}
+                  />
+                </WheelRotate>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: -80 * baseWidth,
+                    left: -70 * baseWidth,
+                    zIndex: -99,
+                  }}
+                >
+                  <ImageBase
+                    src={`${SrcImage.SrcHomeScreen}/effect_wheel.png`}
+                    alt="Effect Image"
+                    widthProps={283}
+                    heightProps={252}
+                  />
+                </div>
+              </div>
+              <ImageBase
+                src={`${SrcImage.SrcHomeScreen}/bracket_home.png`}
+                alt="Bracket Image"
+                widthProps={193}
+                heightProps={29}
+              />
+            </div>
+            <FlexCenterStyle
+              style={{
+                position: "relative",
+              }}
+            >
+              <ImageBase
+                src={`${SrcImage.SrcHomeScreen}/box.png`}
+                alt="Box Image"
+                widthProps={265}
+                heightProps={140}
+              />
+              <TextPlatform topProps={40} leftProps={60}>
+                {dataPlatformList[3]?.name.toUpperCase()}
+              </TextPlatform>
+            </FlexCenterStyle>
 
-            <TextPlatform topProps={200}>
-              {dataPlatformList[3]?.name.toUpperCase()}
-            </TextPlatform>
             <FlexCenterStyle>
               <ButtonBase
                 onClick={() => handleNavigate(dataPlatformList[3])}
                 borderProps={"1px solid #fff"}
               >
-                <TextBtn>Spin</TextBtn>
+                <TextBtn className="font_jura_bold">Spin</TextBtn>
               </ButtonBase>
             </FlexCenterStyle>
           </WheelContainer>
@@ -204,30 +316,137 @@ const HomeScreen = (props) => {
                 onClick={() => handleNavigate(dataPlatformList[4])}
                 borderProps={"1px solid #fff"}
               >
-                <TextBtn>Enter</TextBtn>
+                <TextBtn className="font_jura_bold">Enter</TextBtn>
               </ButtonBase>
             </FlexCenterStyle>
           </SquareContainer>
 
           <FactoryContainer>
-            <ImageBase
-              src={`${SrcImage.SrcHomeScreen}/box.png`}
-              alt="Box Image"
-              widthProps={310}
-              heightProps={183}
-            />
-
-            <TextPlatform topProps={62}>
-              {dataPlatformList[5]?.name.toUpperCase()}
-            </TextPlatform>
-            <FlexCenterStyle>
-              <ButtonBase
-                onClick={() => handleNavigate(dataPlatformList[5])}
-                borderProps={"1px solid #fff"}
+            <div
+              style={{
+                position: "relative",
+                top: -30 * baseWidth,
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  display: "flex",
+                  zIndex: 2,
+                  left: -185 * baseWidth,
+                  top: -35 * baseWidth,
+                }}
               >
-                <TextBtn>Enter</TextBtn>
-              </ButtonBase>
-            </FlexCenterStyle>
+                <ImageBase
+                  src={`${SrcImage.SrcHomeScreen}/factory_left_1.png`}
+                  alt="Box Image"
+                  widthProps={78}
+                  heightProps={97}
+                />
+                <div
+                  style={{
+                    position: "relative",
+                    top: -45 * baseWidth,
+                    right: 45 * baseWidth,
+                  }}
+                >
+                  <FactoryLeft2>
+                    <ImageBase
+                      src={`${SrcImage.SrcHomeScreen}/factory_left_2.png`}
+                      alt="Box Image"
+                      widthProps={99}
+                      heightProps={88}
+                      classNameProps="factory_left_2"
+                    />
+                    <FactoryLeft3>
+                      <ImageBase
+                        src={`${SrcImage.SrcHomeScreen}/factory_left_3.png`}
+                        alt="Box Image"
+                        widthProps={115}
+                        heightProps={108}
+                      />
+                      <FactoryLight>
+                        <ImageBase
+                          src={`${SrcImage.SrcHomeScreen}/factory_left_4.png`}
+                          alt="Box Image"
+                          widthProps={33}
+                          heightProps={56}
+                          styleProps={{
+                            position: "absolute",
+                            right: -20 * baseWidth,
+                            top: 98 * baseWidth,
+                          }}
+                        />
+                      </FactoryLight>
+                    </FactoryLeft3>
+                  </FactoryLeft2>
+                </div>
+              </div>
+
+              <div
+                style={{
+                  position: "absolute",
+                  display: "flex",
+                  zIndex: 2,
+                  left: 104 * baseWidth,
+                  top: 29 * baseWidth,
+                }}
+              >
+                <FactoryRight1>
+                  <ImageBase
+                    src={`${SrcImage.SrcHomeScreen}/factory_right_1.png`}
+                    alt="Box Image"
+                    widthProps={114}
+                    heightProps={89}
+                  />
+                  <FactoryRight2>
+                    <ImageBase
+                      src={`${SrcImage.SrcHomeScreen}/factory_right_2.png`}
+                      alt="Box Image"
+                      widthProps={70}
+                      heightProps={66}
+                    />
+                    <ImageBase
+                      src={`${SrcImage.SrcHomeScreen}/factory_right_3.png`}
+                      alt="Box Image"
+                      widthProps={126}
+                      heightProps={92}
+                      styleProps={{
+                        position: "absolute",
+                        top: 5 * baseWidth,
+                        right: 43 * baseWidth,
+                        zIndex: 1,
+                      }}
+                    />
+                  </FactoryRight2>
+                </FactoryRight1>
+              </div>
+            </div>
+            <div
+              style={{
+                position: "relative",
+                top: 55 * baseWidth,
+              }}
+            >
+              <ImageBase
+                src={`${SrcImage.SrcHomeScreen}/box.png`}
+                alt="Box Image"
+                widthProps={265}
+                heightProps={140}
+              />
+
+              <TextPlatform topProps={40} leftProps={60}>
+                {dataPlatformList[5]?.name.toUpperCase()}
+              </TextPlatform>
+              <FlexCenterStyle>
+                <ButtonBase
+                  onClick={() => handleNavigate(dataPlatformList[5])}
+                  borderProps={"1px solid #fff"}
+                >
+                  <TextBtn className="font_jura_bold">Enter</TextBtn>
+                </ButtonBase>
+              </FlexCenterStyle>
+            </div>
           </FactoryContainer>
         </RightStyleContainer>
       )}

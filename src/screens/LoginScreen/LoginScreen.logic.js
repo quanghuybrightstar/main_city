@@ -20,13 +20,13 @@ export const loginScreenLogic = (props) => {
         client_id: ParamAuth.client_id,
         client_secret: ParamAuth.client_secret,
         grant_type: ParamAuth.grant_type,
-        password: "Khongcomk123123",
+        password: " ",
         scope: ParamAuth.scope,
         username: "daoquanghuy29077@gmail.com",
       };
 
       const result = await APIBase.apiCaller("POST", urlApi, dataBody);
-      console.log(result);
+      // console.log(result);
       if (result) {
         _dispatch(setAuthToken(result.access_token));
         APIBase.updateAccessToken(result.access_token);
@@ -34,7 +34,7 @@ export const loginScreenLogic = (props) => {
         _navigate("/home");
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       if (e.message == "Network Error") {
         alert("Vui lòng kiểm tra kết nối Internet");
       }

@@ -130,6 +130,8 @@ const IconArrowLeft = styled(FlexRowStyle)`
 const RankUser = styled(FlexCenterStyle)`
   align-items: center;
   margin-top: ${10 * baseWidth}px;
+  position: relative;
+  left: ${-5 * baseWidth}px;
 `;
 
 export {

@@ -151,6 +151,7 @@ export const factoryLogic = (props) => {
 
   useEffect(() => {
     const getDetailPlatform = async () => {
+      // console.log(platformSelected);
       if (platformSelected.platform) {
         const detail = await getPlatformDetail(platformSelected.platform);
         _dispatch(setDetailPlatform(detail));
@@ -169,8 +170,6 @@ export const factoryLogic = (props) => {
 
     getDetailPlatform();
   }, []);
-
-  console.log(dataGiftPuzzle);
 
   const handleNavigate = () => {
     _navigate(`/exchange_puzzle`);

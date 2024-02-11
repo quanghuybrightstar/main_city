@@ -89,7 +89,7 @@ export const exchangePuzzleLogic = (props) => {
       const result = await APIBase.apiCaller("GET", uriApi);
       if (result?.status) {
         // console.log(result);
-        console.log(result.data);
+        // console.log(result.data);
 
         const lists = result.data;
 
@@ -102,7 +102,7 @@ export const exchangePuzzleLogic = (props) => {
         alert(result.msg);
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
   useEffect(() => {
@@ -137,7 +137,7 @@ export const exchangePuzzleLogic = (props) => {
         if (exchange.quantity_available > 0) {
           const result = await APIBase.apiCaller("POST", uriApi, dataBody);
           if (result?.status) {
-            console.log(result.data);
+            // console.log(result.data);
             getListExchange();
             alert("Trao đổi thành công!");
           } else {
@@ -147,7 +147,7 @@ export const exchangePuzzleLogic = (props) => {
       } else {
         const result = await APIBase.apiCaller("POST", uriApi, dataBody);
         if (result?.status) {
-          console.log(result.data);
+          // console.log(result.data);
           getListExchange();
           alert("Trao đổi thành công!");
         } else {
@@ -156,10 +156,10 @@ export const exchangePuzzleLogic = (props) => {
         }
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
 
-    console.log(exchange);
+    // console.log(exchange);
   };
 
   return {

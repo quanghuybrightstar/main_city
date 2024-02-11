@@ -11,6 +11,7 @@ const API = {
   buyItem: "api/SR001",
   uploadExchange: "api/EC001",
   doExchange: "api/EC003",
+  getInforUser: "api/IF001",
 };
 
 export default API;

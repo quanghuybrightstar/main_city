@@ -23,6 +23,7 @@ import SelectionType from "../../constants/Selection";
 import { Link } from "react-router-dom";
 import BoxRight from "../../components/BoxRight/BoxRight";
 import API from "../../apis/APIConstant";
+import PseudoClick from "../../components/PseudoClick/PseudoClick";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -154,6 +155,23 @@ const FactoryScreen = (props) => {
 
   return (
     <FactoryContainer>
+      <Link
+        to={"/"}
+        style={{
+          position: "absolute",
+          right: 0 * baseWidth,
+          top: 0 * baseWidth,
+          cursor: "pointer",
+        }}
+        className="hoverOpacity"
+      >
+        <ImageBase
+          src={`${SrcImage.BaseURL}/ico_close.png`}
+          alt="Close Icon"
+          widthProps={82}
+          heightProps={82}
+        />
+      </Link>
       <MenuSelection typeSelection={SelectionType.FACTORY} />
       <RightContainer>
         <HeaderRight>

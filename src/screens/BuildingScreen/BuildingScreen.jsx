@@ -24,7 +24,6 @@ import {
 } from "../../styles/GlobalStyle.style";
 import SrcImage from "../../constants/SrcImage";
 import HeaderLogo from "../../components/Header/HeaderLogo";
-import AvatarUser from "../../components/AvatarUser/AvatarUser";
 import MenuSelection from "../../components/MenuSelection/MenuSelection";
 import { HeaderTitle } from "../../components/Header";
 import ButtonBase from "../../components/Button/Button";
@@ -36,6 +35,7 @@ import SelectCustom from "../../components/SelectCustom/SelectCustom";
 import OptionSelect from "../../constants/OptionSelect";
 import { useSelector } from "react-redux";
 import API from "../../apis/APIConstant";
+import { Link } from "react-router-dom";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -95,6 +95,23 @@ const BuildingScreen = (props) => {
 
   return (
     <BuildingContainer>
+      <Link
+        to={"/"}
+        style={{
+          position: "absolute",
+          right: 0 * baseWidth,
+          top: 0 * baseWidth,
+          cursor: "pointer",
+        }}
+        className="hoverOpacity"
+      >
+        <ImageBase
+          src={`${SrcImage.BaseURL}/ico_close.png`}
+          alt="Close Icon"
+          widthProps={82}
+          heightProps={82}
+        />
+      </Link>
       <MenuSelection typeSelection={SelectionType.BUILDING} />
       <RightContainer>
         <HeaderRight>

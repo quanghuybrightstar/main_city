@@ -5,6 +5,11 @@ export const setAuthToken = (token) => ({
   payload: token,
 });
 
+export const logout = () => ({
+  type: ActionsConstant.LOG_OUT,
+  payload: null,
+});
+
 export const setPlatformSelected = (platform) => {
   localStorage.setItem("platformSelected", platform);
   return {

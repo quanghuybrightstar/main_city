@@ -39,46 +39,49 @@ const ModalLogin = ({ isVisible, onClickClose }) => {
         </PseudoClick>
       </div>
 
-      <LoginContent>
-        {errorMsg && <TextError>{errorMsg}</TextError>}
-        <div>
-          <InputBase
-            placeholder={"Nhập email..."}
-            onChange={(e) => onChangeEmail(e.target.value)}
-          ></InputBase>
-          <InputBase
-            typeInput={"password"}
-            placeholder={"Nhập mật khẩu..."}
-            onChange={(e) => onChangePassword(e.target.value)}
-          ></InputBase>
-        </div>
-        <div
-          style={{
-            fontStyle: "italic",
-            color: ColorBase.bluePrimary,
-            fontSize: 25 * smFontSize,
-            textDecoration: "underline",
-            display: "flex",
-            justifyContent: "flex-end",
-            width: "100%",
-            paddingRight: 150 * baseWidth,
-            cursor: "pointer",
-            marginTop: 35 * baseWidth,
-          }}
-        >
-          Lấy mật khẩu
-        </div>
-        <ButtonBase
-          widthProps={300}
-          onClick={() => handleLogin()}
-          heightProps={65}
-          borderRadiusProps={40 * baseWidth}
-          marginProps={`${120 * baseWidth}px 0 0 0`}
-        >
-          <BaseTextSize28>ĐĂNG NHẬP</BaseTextSize28>
-        </ButtonBase>
-        c
-      </LoginContent>
+      <form action="" onSubmit={handleLogin}>
+        <LoginContent>
+          {errorMsg && <TextError>{errorMsg}</TextError>}
+          <div>
+            <InputBase
+              placeholder={"Nhập email..."}
+              onChange={(e) => onChangeEmail(e.target.value)}
+            ></InputBase>
+            <InputBase
+              typeInput={"password"}
+              placeholder={"Nhập mật khẩu..."}
+              onChange={(e) => onChangePassword(e.target.value)}
+            ></InputBase>
+          </div>
+          <div
+            style={{
+              fontStyle: "italic",
+              color: ColorBase.bluePrimary,
+              fontSize: 25 * smFontSize,
+              textDecoration: "underline",
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "100%",
+              paddingRight: 150 * baseWidth,
+              cursor: "pointer",
+              marginTop: 35 * baseWidth,
+            }}
+          >
+            Lấy mật khẩu
+          </div>
+          <ButtonBase
+            widthProps={300}
+            onClick={(e) => handleLogin(e)}
+            heightProps={65}
+            borderRadiusProps={40 * baseWidth}
+            marginProps={`${120 * baseWidth}px 0 0 0`}
+          >
+            <BaseTextSize28 className="font_jura_bold">
+              ĐĂNG NHẬP
+            </BaseTextSize28>
+          </ButtonBase>
+        </LoginContent>
+      </form>
     </ModalLoginContainer>
   );
 };

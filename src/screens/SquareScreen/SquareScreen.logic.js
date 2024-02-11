@@ -1,13 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import TypeTime from "../../constants/TypeTime";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getPlatformDetail,
-  getSquareDetail,
-} from "../../base/GetPlatformDetail";
 import { setDetailPlatform } from "../../redux/actions/actions";
 import { ContentSlection } from "../../components/MenuSelection/MenuSelection.style";
 import SmartBaseScreen from "../../base/SmartScreenBase";
+import API from "../../apis/APIConstant";
+import APIBase from "../../base/APIBase";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth;
@@ -21,8 +19,43 @@ export const squareScreenLogic = (props) => {
   const [pageCurrent, setPageCurrent] = useState(1);
 
   const contentRef = useRef(null);
-
   const [dataRankList, setDataRankList] = useState([]);
+  const [isLoadMore, setLoadMore] = useState(true);
+  const [isLoading, setLoading] = useState(false);
+
+  const hasDuplicates = (array1, array2) => {
+    var combinedArray = array1.concat(array2);
+    return new Set(combinedArray).size !== combinedArray.length;
+  };
+
+  const getSquareDetail = async (platform, page, limit, filter) => {
+    try {
+      let dataResult = [];
+      let uriApi = `${API.baseURL}${API.squareDetail}?id_platform=${
+        platform.id
+      }&page=${page}&limit=${limit || 10}&filter=${filter || "all"}`;
+      // console.log(platform);
+
+      if ((pageCurrent != page || page == 1) && !isLoading) {
+        setLoading(true);
+        const result = await APIBase.apiCaller("GET", uriApi);
+        if (result?.status) {
+          // console.log(result);
+          if (!hasDuplicates(dataRankList, result?.data)) {
+            setLoading(false);
+            setLoadMore(result.data?.length - 1 == limit);
+            dataResult = result.data;
+            setPageCurrent(page);
+          }
+        }
+      }
+
+      return dataResult;
+    } catch (e) {
+      // console.log(e);
+    }
+  };
+
   useEffect(() => {
     const getDetailSquare = async () => {
       if (platformSelected.platform) {
@@ -43,58 +76,6 @@ export const squareScreenLogic = (props) => {
     getDetailSquare();
   }, []);
 
-  // const [dataRankList, setDataRankList] = useState([
-  //   {
-  //     ranking: 4,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 4500,
-  //   },
-  //   {
-  //     ranking: 5,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 4444,
-  //   },
-  //   {
-  //     ranking: 6,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 4242,
-  //   },
-  //   {
-  //     ranking: 7,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 4000,
-  //   },
-  //   {
-  //     ranking: 8,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 3900,
-  //   },
-  //   {
-  //     ranking: 9,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 3800,
-  //   },
-  //   {
-  //     ranking: 10,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 3700,
-  //   },
-  //   {
-  //     ranking: 32,
-  //     imgUrl: "/avtRankLower.png",
-  //     name: "@playername",
-  //     diamond: 2243,
-  //     is_user: 1,
-  //   },
-  // ]);
-
   // Func handle change type time
 
   const handleChangeTypeTime = async (typeSelected) => {
@@ -108,7 +89,7 @@ export const squareScreenLogic = (props) => {
     );
 
     if (detail?.slice(0, -1)?.length > 0) {
-      console.log(detail);
+      // console.log(detail);
       _dispatch(setDetailPlatform(detail.slice(0, -1)));
       setDataRankList(detail.slice(0, -1));
       detail.map((data) => {
@@ -121,10 +102,12 @@ export const squareScreenLogic = (props) => {
   const handleScrollContent = async () => {
     if (contentRef.current) {
       const { scrollTop, clientHeight, scrollHeight } = contentRef.current;
-      console.log(scrollHeight);
+      // console.log(scrollHeight);
 
-      if (scrollHeight - scrollTop == clientHeight) {
-        console.log("scrolled");
+      if (
+        scrollHeight - scrollTop < clientHeight + 5 * baseWidth &&
+        isLoadMore
+      ) {
         const detail = await getSquareDetail(
           platformSelected.platform,
           pageCurrent + 1,
@@ -132,10 +115,8 @@ export const squareScreenLogic = (props) => {
           typeTime
         );
 
-        console.log(detail);
-
         if (detail?.slice(0, -1)?.length > 0) {
-          console.log(detail);
+          // console.log(detail);
           setPageCurrent(pageCurrent + 1);
           setDataRankList((prev) => prev.concat(detail.slice(0, -1)));
         }

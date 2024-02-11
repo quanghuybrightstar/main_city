@@ -26,170 +26,158 @@ export const wheelScreenLogic = (props) => {
     getDetailPlatform();
   }, []);
 
-  const [value, setValue] = useState(
-    Math.ceil(Math.random() * (3600 - 2400) + 2400)
-  );
+  const [value, setValue] = useState(1800);
 
-  const [item, setItem] = useState([
+  const [isSpin, setIsSpin] = useState(true);
+
+  const [items, setItems] = useState([
     {
       id: 1,
       name: "1",
+      keyImg: "item_1",
+      baseRotate: 150,
     },
     {
       id: 2,
       name: "2",
+      keyImg: "item_2",
+      baseRotate: 120,
     },
     {
       id: 3,
       name: "3",
+      keyImg: "item_3",
+      baseRotate: 90,
     },
     {
       id: 4,
       name: "4",
+      keyImg: "item_4",
+      baseRotate: 60,
     },
     {
       id: 5,
       name: "5",
+      keyImg: "item_5",
+      baseRotate: 30,
     },
     {
       id: 6,
       name: "6",
+      keyImg: "item_6",
+      baseRotate: 0,
     },
     {
       id: 7,
       name: "7",
+      keyImg: "item_7",
+      baseRotate: 330,
     },
     {
       id: 8,
       name: "8",
+      keyImg: "item_8",
+      baseRotate: 300,
     },
     {
       id: 9,
       name: "9",
+      keyImg: "item_9",
+      baseRotate: 270,
     },
     {
       id: 10,
       name: "10",
+      keyImg: "item_10",
+      baseRotate: 240,
     },
     {
       id: 11,
       name: "11",
+      keyImg: "item_11",
+      baseRotate: 210,
     },
     {
       id: 12,
       name: "12",
+      keyImg: "item_12",
+      baseRotate: 180,
     },
   ]);
-  const circleCenterX = 825 * baseWidth; // X-coordinate of the circle's center
-  const circleCenterY = 292 * baseWidth; // Y-coordinate of the circle's center
-  const circleRadius = 267 * baseWidth; // Radius of the circle
+  // const circleCenterX = 825 * baseWidth; // X-coordinate of the circle's center
+  // const circleCenterY = 292 * baseWidth; // Y-coordinate of the circle's center
+  // const circleRadius = 267 * baseWidth; // Radius of the circle
 
-  // Calculate and store the positions of midpoints
-  const numSectors = 12;
+  // // Calculate and store the positions of midpoints
+  // const numSectors = 12;
 
-  // Calculate the angle between each sector
-  const sectorAngle = (2 * Math.PI) / numSectors;
+  // // Calculate the angle between each sector
+  // const sectorAngle = (2 * Math.PI) / numSectors;
 
-  // Array to store the midpoints
-  const midpoints = [];
+  // // Array to store the midpoints
+  // const midpoints = [];
 
-  // Calculate the midpoints of each sector
-  for (let i = 0; i < numSectors; i++) {
-    const sectorMidpointAngle = i * sectorAngle + sectorAngle / 2; // Angle for the midpoint of each sector
+  // // Calculate the midpoints of each sector
+  // for (let i = 0; i < numSectors; i++) {
+  //   const sectorMidpointAngle = i * sectorAngle + sectorAngle / 2; // Angle for the midpoint of each sector
 
-    // Calculate the midpoint coordinates
-    const midpointX =
-      circleCenterX + circleRadius * Math.cos(sectorMidpointAngle);
-    const midpointY =
-      circleCenterY + circleRadius * Math.sin(sectorMidpointAngle);
+  //   // Calculate the midpoint coordinates
+  //   const midpointX =
+  //     circleCenterX + circleRadius * Math.cos(sectorMidpointAngle);
+  //   const midpointY =
+  //     circleCenterY + circleRadius * Math.sin(sectorMidpointAngle);
 
-    // Store the midpoint in the array
-    midpoints.push({ x: midpointX, y: midpointY });
-  }
+  //   // Store the midpoint in the array
+  //   midpoints.push({ x: midpointX, y: midpointY });
+  // }
 
   // Display the calculated midpoints
-  console.log(midpoints);
 
   const handleSpinWheel = () => {
     // setDataWheel({
     //   tickets_remaining: dataWheel.tickets_remaining - 1,
     // });
-    let wheelContainer = document.querySelector(".wheelContainer");
 
-    console.log(value);
-    wheelContainer.style.transform = `rotate(${value}deg)`;
-    let elementId = document.getElementById("wheel");
-    const elementBound = elementId.getBoundingClientRect();
+    if (isSpin) {
+      console.log(items);
 
-    console.log(elementBound.x, elementBound.y);
-    // Display the calculated midpoints
-    console.log(midpoints);
-    function getPositionEle() {
-      const computedStyle = window.getComputedStyle(wheelContainer);
-      const transform = computedStyle.getPropertyValue("transform");
-      const values = transform.split("(")[1].split(")")[0].split(",");
-      const a = values[0];
-      const b = values[1];
-      const rotation = Math.atan2(b, a);
+      let wheelContainer = document.querySelector(".wheelContainer");
 
-      const finalX =
-        midpoints[5].x * Math.cos(rotation) -
-        midpoints[5].y * Math.sin(rotation);
-      const finalY =
-        midpoints[5].x * Math.sin(rotation) +
-        midpoints[5].y * Math.cos(rotation);
+      const idItemRandom = Math.floor(Math.random() * (12 - 1 + 1)) + 1;
 
-      console.log(finalX + "_" + finalY);
+      let valueRotate = value;
+      let itemRotated = 0;
 
-      // const midpoints2 = [];
-      // for (let i = 0; i < 12; i++) {
-      //   const angleDegrees = i * 30 + 15; // Calculate the angle for each sector's midpoint (15 degrees offset for the midpoint)
-      //   const angleRadians = (angleDegrees * Math.PI) / 180; // Convert angle to radians
-      //   const midpointX = circleCenterX + circleRadius * Math.cos(angleRadians);
-      //   const midpointY = circleCenterY + circleRadius * Math.sin(angleRadians);
-
-      //   midpoints2.push({ x: midpointX, y: midpointY });
-      // }
-
-      // console.log(midpoints2);
-
-      setValue(value + Math.ceil(Math.random() * (3600 - 2400) + 2400));
-      // let elementId = document.getElementById("123");
-      // const elementBound = elementId.getBoundingClientRect();
-
-      // let element = document.getElementById("456");
-      // const elementBound2 = element.getBoundingClientRect();
-
-      // console.log(
-      //   elementBound2.left -
-      //     elementBound.left +
-      //     "_" +
-      //     (elementBound2.top - elementBound.top)
-      // );
-
-      // console.log(100 * baseWidth);
-
-      // if (
-      //   Math.abs(elementBound2.top - elementBound.top) <= 17 * baseWidth &&
-      //   Math.abs(elementBound2.left - elementBound.left) <= 90 * baseWidth
-      // ) {
-      //   console.log("123");
-      // }
-
-      midpoints.forEach((point) => {
-        if (
-          point.y <= 361 * baseWidth &&
-          point.y >= 222 * baseWidth &&
-          point.x < 825 * baseWidth
-        ) {
-          console.log(point);
-          console.log(825 * baseWidth);
+      items.forEach((item) => {
+        if (item.id === idItemRandom) {
+          valueRotate = valueRotate + item.baseRotate;
+          itemRotated = item;
         }
       });
-    }
 
-    wheelContainer.addEventListener("transitionend", getPositionEle);
+      setValue(1800 + valueRotate);
+
+      const newItems = items;
+
+      newItems.map((item) => {
+        if (item.baseRotate >= itemRotated.baseRotate) {
+          item.baseRotate -= itemRotated.baseRotate;
+        } else {
+          item.baseRotate += 360 - itemRotated.baseRotate;
+        }
+      });
+
+      setItems(newItems);
+
+      wheelContainer.style.transform = `rotate(${valueRotate}deg)`;
+      setIsSpin(false);
+
+      setTimeout(() => {
+        setIsSpin(true);
+        alert(`Chúc mừng bạn đã quay được mảnh ghép ${itemRotated.name}`);
+      }, 5000);
+    }
   };
 
-  return { dataWheel, platformSelected, item, handleSpinWheel };
+  return { dataWheel, platformSelected, items, handleSpinWheel };
 };

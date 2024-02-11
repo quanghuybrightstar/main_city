@@ -26,8 +26,6 @@ import {
 } from "../../styles/GlobalStyle.style";
 import { squareScreenLogic } from "./SquareScreen.logic";
 import SrcImage from "../../constants/SrcImage";
-import HeaderLogo from "../../components/Header/HeaderLogo";
-import AvatarUser from "../../components/AvatarUser/AvatarUser";
 import MenuSelection from "../../components/MenuSelection/MenuSelection";
 import { HeaderTitle } from "../../components/Header";
 import ButtonBase from "../../components/Button/Button";
@@ -36,6 +34,7 @@ import ImageBase from "../../components/Image/ImageBase";
 import SelectionType from "../../constants/Selection";
 import ColorBase from "../../styles/Color";
 import API from "../../apis/APIConstant";
+import { Link } from "react-router-dom";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -135,6 +134,23 @@ const SquareScreen = (props) => {
 
   return (
     <SquareStyleContainer>
+      <Link
+        to={"/"}
+        style={{
+          position: "absolute",
+          right: 0 * baseWidth,
+          top: 0 * baseWidth,
+          cursor: "pointer",
+        }}
+        className="hoverOpacity"
+      >
+        <ImageBase
+          src={`${SrcImage.BaseURL}/ico_close.png`}
+          alt="Close Icon"
+          widthProps={82}
+          heightProps={82}
+        />
+      </Link>
       <MenuSelection typeSelection={SelectionType.SQUARE} />
 
       <RightContainer>
@@ -308,7 +324,7 @@ const SquareScreen = (props) => {
                 background: `url(${
                   SrcImage.SrcSquareScreen
                 }${"/borderRankSelected.png"}) no-repeat top center /cover`,
-                width: baseWidth * 470,
+                width: baseWidth * 472,
                 height: baseWidth * 60,
                 marginTop: baseWidth * 6,
                 position: "relative",

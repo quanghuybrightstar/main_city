@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import API from "../../apis/APIConstant";
 import APIBase from "../../base/APIBase";
 import StorageValue from "../../Storage/StorageValue";
+import SelectionType from "../../constants/Selection";
 
 export const addTicketsLogic = (props) => {
   const _navigate = useNavigate();
@@ -18,7 +19,7 @@ export const addTicketsLogic = (props) => {
       const result = await APIBase.apiCaller("GET", uriApi);
       if (result?.status) {
         // console.log(result);
-        console.log(result.data);
+        // console.log(result.data);
         setDataBuyTickets(result.data);
       }
     } catch (e) {
@@ -33,7 +34,7 @@ export const addTicketsLogic = (props) => {
       const result = await APIBase.apiCaller("GET", uriApi);
       if (result?.status) {
         // console.log(result);
-        console.log(result.data);
+        // console.log(result.data);
         setDataMissions(result.data.filter((item) => item.received == 0));
       }
     } catch (e) {
@@ -58,12 +59,12 @@ export const addTicketsLogic = (props) => {
   };
 
   const handleGoBack = () => {
-    _navigate(-1);
+    _navigate(`/${SelectionType.WHEEL}`);
   };
 
   // Handle Buy Tickets
   const handleBuyTickets = async (method) => {
-    console.log(method);
+    // console.log(method);
     try {
       let countTickets = method.discount > 0 ? method.value : countBuyItem;
       let dataBody = {
@@ -78,14 +79,14 @@ export const addTicketsLogic = (props) => {
       const result = await APIBase.apiCaller("POST", uriApi, dataBody);
       if (result?.status) {
         // console.log(result);
-        console.log(result.data);
+        // console.log(result.data);
         getItemCanBuyList();
         StorageValue.updateMenu();
       } else {
         alert(result.msg);
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
       alert(e.msg);
     }
   };
@@ -103,14 +104,14 @@ export const addTicketsLogic = (props) => {
         const result = await APIBase.apiCaller("POST", uriApi, dataBody);
         if (result?.status) {
           // console.log(result);
-          console.log(result.data);
+          // console.log(result.data);
           getMissionList();
           StorageValue.updateMenu();
         } else {
           alert(result.msg);
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     }
   };

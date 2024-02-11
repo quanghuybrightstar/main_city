@@ -9,6 +9,10 @@ button:hover {
   opacity: 0.95;
 }
 
+.hoverOpacity:hover {
+  opacity: 0.9;
+}
+
 /*MORE CSS*/
 .loading {
   position: fixed;
@@ -33,6 +37,41 @@ button:hover {
   -webkit-animation: spin 2s linear infinite;
   /* Safari */
   animation: spin 2s linear infinite;
+}
+
+@font-face {
+  font-family: "RadioSpaceBoldItalic";
+  src: url(../public/assets/fonts/radiospaceboldital.ttf);
+}
+
+@font-face {
+  font-family: "MontserratBold";
+  src: url(../public/assets/fonts/MontserratBold.ttf);
+}
+
+@font-face {
+  font-family: "JuraMedium";
+  src: url(../public/assets/fonts/JuraMedium.ttf);
+}
+@font-face {
+  font-family: "JuraBold";
+  src: url(../public/assets/fonts/JuraBold.ttf);
+}
+
+.font_radio_bold {
+  font-family: "RadioSpaceBoldItalic" !important;
+}
+
+.font_montserratBold {
+  font-family: "MontserratBold" !important;
+}
+
+.font_jura {
+  font-family: "JuraMedium" !important;
+}
+
+.font_jura_bold {
+  font-family: "JuraBold" !important;
 }
 
 /* Safari */

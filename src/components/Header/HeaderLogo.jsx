@@ -13,35 +13,45 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
 
 const HeaderLogo = ({ widthLogo, heightLogo }) => {
   return (
-    <FlexRowStyle>
+    <FlexRowStyle
+      style={{
+        margin: `${baseWidth * 30}px 0 ${baseWidth * 15}px`,
+      }}
+    >
       <Link to="/">
         <ImageBase
-          // src={`${SrcImage.BaseURL}/logo.jpg`}
-          src={"https://media-public.canva.com/KIKAo/MADSaIKIKAo/2/t.png"}
+          src={`${SrcImage.BaseURL}/logo.png`}
+          // src={"https://media-public.canva.com/KIKAo/MADSaIKIKAo/2/t.png"}
           alt="Logo Image"
-          widthProps={widthLogo || 71}
-          heightProps={heightLogo || 71}
+          widthProps={widthLogo || 78}
+          heightProps={heightLogo || 50}
         />
       </Link>
       <FlexRowStyle>
         <h2
+          className="font_jura_bold"
           style={{
             fontSize: smFontSize * 40,
             marginLeft: baseWidth * 10,
             marginRight: baseWidth * 10,
             fontWeight: 500,
+            marginTop: 0,
+            marginBottom: 0,
           }}
         >
-          DEMO
+          GK
         </h2>
         <h2
+          className="font_jura_bold"
           style={{
             fontSize: smFontSize * 40,
             color: ColorBase.yellowPrimary,
             fontWeight: 500,
+            marginTop: 0,
+            marginBottom: 0,
           }}
         >
-          COMPANY
+          CORPORATION
         </h2>
       </FlexRowStyle>
     </FlexRowStyle>

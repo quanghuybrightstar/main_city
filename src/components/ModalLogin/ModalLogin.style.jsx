@@ -1,10 +1,8 @@
-import { modalLoginLogic } from "./ModalLogin.logic";
-import ImageBase from "../Image/ImageBase";
 import { FlexColStyle, ErrorText } from "../../styles/GlobalStyle.style";
 import SmartBaseScreen from "../../base/SmartScreenBase";
-import ColorBase from "../../styles/Color";
 import { styled, keyframes, css } from "styled-components";
 import SrcImage from "../../constants/SrcImage";
+import PseudoClick from "../PseudoClick/PseudoClick";
 
 const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
@@ -23,14 +21,14 @@ const slideInLeft = keyframes`
 const ModalLoginContainer = styled(FlexColStyle)`
   align-items: center;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: ${-2 * baseWidth}px;
+  left: ${-8 * baseWidth}px;
   bottom: 0;
   width: ${661 * baseWidth}px;
   background: url(${`${SrcImage.BaseURL}/modalLogin.png`}) no-repeat top center /
     cover;
   display: ${(props) => props.display};
-  animation: ${slideInLeft} linear 0.3s;
+  animation: ${slideInLeft} linear 0.2s;
   z-index: 999;
 `;
 

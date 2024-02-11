@@ -33,12 +33,21 @@ export const menuSelectionLogic = (props) => {
 
   const handleSelectPlatform = (platform) => {
     _dispatch(setPlatformSelected(platform));
-    _navigate(`/${platform?.type?.toLowerCase()}`);
+    // _navigate(`/${platform?.type?.toLowerCase()}`);
+  };
+
+  const handleNavigateAddTicket = (type) => {
+    _navigate(`/add_ticket`, {
+      state: {
+        typePlatform: type,
+      },
+    });
   };
 
   return {
     count,
     dataSelection,
     handleSelectPlatform,
+    handleNavigateAddTicket,
   };
 };

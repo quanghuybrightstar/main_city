@@ -16,6 +16,7 @@ const ButtonBase = ({
   borderRadiusProps,
   marginProps,
   disabled,
+  styleProps,
 }) => (
   <button
     disabled={disabled}
@@ -28,6 +29,7 @@ const ButtonBase = ({
       border: borderProps || `1px solid #808080`,
       backgroundColor: bgColorProps || ColorBase.bluePrimary,
       margin: marginProps,
+      ...styleProps,
     }}
   >
     {children}

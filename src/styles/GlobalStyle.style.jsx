@@ -56,6 +56,10 @@ const HeaderRight = styled(FlexBetweenStyle)`
 
 // Base Font Size
 
+const BaseTextSize40 = styled.div`
+  font-size: ${smFontSize * 40}px;
+`;
+
 const BaseTextSize38 = styled.div`
   font-size: ${smFontSize * 38}px;
 `;
@@ -112,10 +116,11 @@ const RemainText = ({ countRemaining, widthProps }) => (
   <FlexRowStyle>
     <div
       style={{
-        fontSize: smFontSize * 18,
+        fontSize: smFontSize * 17,
         display: "flex",
         width: widthProps,
       }}
+      className="font_jura"
     >
       Bạn có <TextUnderline>{countRemaining}</TextUnderline>
     </div>
@@ -148,4 +153,5 @@ export {
   BaseTitleGame,
   RemainText,
   ContentRightContainer,
+  BaseTextSize40,
 };

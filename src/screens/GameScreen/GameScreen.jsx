@@ -12,7 +12,7 @@ const GameScreen = ({ src }) => {
     <div>
       <iframe
         style={{
-          width: 1910 * baseWidth,
+          width: 1905 * baseWidth,
           height: 980 * baseWidth,
           border: "none",
         }}

@@ -8,6 +8,7 @@ import {
   BaseTitleGame,
   FlexRowStyle,
   BaseTextSize20,
+  FlexCenterStyle,
 } from "../../styles/GlobalStyle.style";
 import SrcImage from "../../constants/SrcImage";
 import MenuSelection from "../../components/MenuSelection/MenuSelection";
@@ -26,24 +27,55 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const WheelScreen = (props) => {
-  let { dataWheel, platformSelected, item, handleSpinWheel } =
+  let { dataWheel, platformSelected, items, handleSpinWheel } =
     wheelScreenLogic(props);
+  const circleCenterX = 238 * baseWidth; // X-coordinate of the circle's center
+  const circleCenterY = 240 * baseWidth; // Y-coordinate of the circle's center
+  const circleRadius = 174 * baseWidth;
 
-  const renderItemList = (item) => {
+  const renderItemList = (item, index) => {
+    const angle = item.id * (360 / 12) * (Math.PI / 180);
+    const x = circleCenterX + circleRadius * Math.cos(angle);
+    const y = circleCenterY + circleRadius * Math.sin(angle);
+
     return (
-      <div
+      <FlexCenterStyle
+        key={item.id}
         style={{
           position: "absolute",
-          color: "yellow",
+          left: x + "px",
+          top: y + "px",
         }}
       >
-        {item.name}
-      </div>
+        <ImageBase
+          src={`${SrcImage.SrcWheelScreen}/${item.keyImg}.png`}
+          alt="item  Image"
+          widthProps={60}
+          heightProps={60}
+        />
+      </FlexCenterStyle>
     );
   };
 
   return (
     <WheelContainer>
+      <Link
+        to={"/"}
+        style={{
+          position: "absolute",
+          right: 0 * baseWidth,
+          top: 0 * baseWidth,
+          cursor: "pointer",
+        }}
+        className="hoverOpacity"
+      >
+        <ImageBase
+          src={`${SrcImage.BaseURL}/ico_close.png`}
+          alt="Close Icon"
+          widthProps={82}
+          heightProps={82}
+        />
+      </Link>
       <MenuSelection typeSelection={SelectionType.WHEEL} />
       <RightContainer>
         <HeaderRight>
@@ -57,6 +89,7 @@ const WheelScreen = (props) => {
               alignItems: "center",
               marginTop: 35 * baseWidth,
               position: "relative",
+              // zIndex: 3,
             }}
           >
             <div
@@ -74,25 +107,14 @@ const WheelScreen = (props) => {
                 widthProps={535}
                 heightProps={535}
                 marginProps={`0 0 0 0`}
-              />
-
-              <div
-                style={{
-                  position: "absolute",
-                  color: "green",
-                  top: "55%",
-                  left: "10%",
+                styleProps={{
+                  transform: `rotate(14deg)`,
                 }}
-              >
-                {item[5]?.name}
-              </div>
-
-              {/* <div id="123" style={{ position: "absolute", top: 80, left: 80 }}>
-                123
-              </div> */}
+              />
+              {items.map((item, index) => renderItemList(item, index))}
             </div>
             <div
-              id="456"
+              id="ico_wheel_select"
               style={{
                 position: "absolute",
                 top: "46%",
@@ -106,20 +128,6 @@ const WheelScreen = (props) => {
                 heightProps={52}
                 marginProps={`0 0 0 0`}
               />
-              <div
-                id="wheel"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  position: "absolute",
-                  top: "29%",
-                  left: "100%",
-                  height: 1 * baseWidth,
-                  color: "red",
-                }}
-              >
-                .
-              </div>
             </div>
           </div>
 

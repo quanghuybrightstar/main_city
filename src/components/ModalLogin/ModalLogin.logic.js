@@ -6,10 +6,17 @@ import API from "../../apis/APIConstant";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setAuthToken } from "../../redux/actions/actions";
+import { useEffect } from "react";
+import Cookies from "universal-cookie";
 
 export const modalLoginLogic = (props) => {
   const _dispatch = useDispatch();
   const _navigate = useNavigate();
+
+  const cookies = new Cookies(null, {
+    path: "/",
+    domain: "game.gkcorp.com.vn",
+  });
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -31,7 +38,8 @@ export const modalLoginLogic = (props) => {
     setPassword(value);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e?.preventDefault();
     if (!validateEmail(email)) {
       setErrorMsg("Email không đúng định dạng!");
     } else {
@@ -48,11 +56,12 @@ export const modalLoginLogic = (props) => {
         };
 
         const result = await APIBase.apiCaller("POST", urlApi, dataBody);
-        console.log(result);
+        // console.log(result);
         if (result.access_token) {
           _dispatch(setAuthToken(result.access_token));
           APIBase.updateAccessToken(result.access_token);
           localStorage.setItem("access_token", result.access_token);
+          cookies.set("access_token", result.access_token);
           _navigate("/");
         }
       } catch (e) {

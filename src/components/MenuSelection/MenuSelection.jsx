@@ -5,6 +5,7 @@ import {
   FlexColStyle,
   RemainText,
   BaseTextSize38,
+  BaseTextSize40,
 } from "../../styles/GlobalStyle.style";
 import SrcImage from "../../constants/SrcImage";
 import SmartBaseScreen from "../../base/SmartScreenBase";
@@ -32,7 +33,8 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
   smFontSize = SmartBaseScreen.smFontSize;
 
 const MenuSelection = (props) => {
-  let { dataSelection, handleSelectPlatform } = menuSelectionLogic(props);
+  let { dataSelection, handleSelectPlatform, handleNavigateAddTicket } =
+    menuSelectionLogic(props);
 
   let { typeSelection } = props;
 
@@ -40,17 +42,19 @@ const MenuSelection = (props) => {
     switch (item?.type) {
       case SelectionType.DIAMOND:
         return (
-          <BaseTextSize38>{item?.diamond ? item?.diamond : "0"}</BaseTextSize38>
+          <BaseTextSize40 className="font_radio_bold">
+            {item?.diamond ? item?.diamond : "0"}
+          </BaseTextSize40>
         );
       case SelectionType.BUILDING:
         return (
-          <DetailSelection>
+          <DetailSelection className="font_jura">
             Bạn vừa nhận thêm {item?.quantity ? item?.quantity : "0"} hộp quà
           </DetailSelection>
         );
       case SelectionType.SQUARE:
         return (
-          <DetailSelection>
+          <DetailSelection className="font_jura">
             Hạng {item?.ranking}{" "}
             <div
               style={{
@@ -78,7 +82,11 @@ const MenuSelection = (props) => {
         );
       default:
         return (
-          <DetailSelection>
+          <DetailSelection
+            style={{
+              zIndex: 2,
+            }}
+          >
             <RemainText
               countRemaining={`${
                 item?.ticket_quantity ? item?.ticket_quantity : "0"
@@ -96,15 +104,18 @@ const MenuSelection = (props) => {
               heightProps={56}
               marginProps={`0 ${8 * baseWidth}px`}
             />
-            <Link to="/add_ticket">
+            <Link
+              to="/add_ticket"
+              style={{
+                zIndex: 2,
+              }}
+            >
               <ButtonBase
                 widthProps={98}
-                onClick={() => {
-                  console.log("123");
-                }}
+                onClick={() => handleNavigateAddTicket(item?.type)}
                 heightProps={30}
               >
-                <TextBtnSmall>Nhận vé</TextBtnSmall>
+                <TextBtnSmall className="font_jura">Nhận vé</TextBtnSmall>
               </ButtonBase>
             </Link>
           </DetailSelection>
@@ -114,13 +125,19 @@ const MenuSelection = (props) => {
 
   const renderSelection = (item) => {
     return (
-      <div
+      <Link
+        to={
+          item.type != SelectionType.DIAMOND && `/${item?.type?.toLowerCase()}`
+        }
         key={item.id}
         style={{
           paddingLeft: 80 * baseWidth,
           paddingTop: 12 * baseWidth,
-          paddingRight: 60 * baseWidth,
+          marginRight: 60 * baseWidth,
+          cursor: "pointer",
+          color: ColorBase.whiteColor,
         }}
+        onClick={() => handleSelectPlatform(item)}
       >
         <FlexBetweenStyle>
           {item?.type == typeSelection && (
@@ -149,13 +166,15 @@ const MenuSelection = (props) => {
 
             <ContentSlection>
               <div
+                className="font_jura_bold"
                 style={{
                   fontSize: smFontSize * 20,
                   fontWeight: 500,
                   color:
                     item?.type == typeSelection
-                      ? "#38BAD4"
+                      ? ColorBase.menuName
                       : ColorBase.yellowPrimary,
+                  textShadow: `1px 2px 5px rgba(0, 0, 0, 0.5), 0 0 2px rgba(0, 0, 0, 0.5)`,
                 }}
               >
                 {item?.name}
@@ -175,7 +194,7 @@ const MenuSelection = (props) => {
             </BtnNext>
           )}
         </FlexBetweenStyle>
-      </div>
+      </Link>
     );
   };
 
@@ -192,8 +211,9 @@ const MenuSelection = (props) => {
 
       <div
         style={{
-          paddingLeft: 110 * baseWidth,
+          paddingLeft: 85 * baseWidth,
           paddingTop: 2 * baseWidth,
+          paddingRight: 54 * baseWidth,
         }}
       >
         <AvatarUser />

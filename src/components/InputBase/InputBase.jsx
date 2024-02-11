@@ -22,7 +22,7 @@ const InputBase = ({ typeInput, placeholder, onChange, width, height }) => {
           border: "1px solid rgba(0, 0, 0, 0.4)",
           borderRadius: 10 * baseWidth,
           outline: "none",
-          paddingLeft: 10 * baseWidth,
+          paddingLeft: 20 * baseWidth,
           color: "#000",
           fontSize: smFontSize * 20,
         }}

@@ -37,7 +37,7 @@ export const moreExchangeLogic = (props) => {
   };
 
   const handleSelectPuzzle = (typeExchange, puzzle) => {
-    console.log(puzzle);
+    // console.log(puzzle);
     if (typeExchange == "get") {
       setExchangeGet(puzzle);
     } else if (typeExchange == "give") {
@@ -63,13 +63,13 @@ export const moreExchangeLogic = (props) => {
         const result = await APIBase.apiCaller("POST", uriApi, dataBody);
         if (result?.status) {
           // console.log(result);
-          console.log(result.data);
+          // console.log(result.data);
           _navigate(-1);
         } else {
           alert(result.msg);
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
       }
     } else {
       alert("Vui lòng chọn đầy đủ mảnh ghép trao đổi");

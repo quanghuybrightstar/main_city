@@ -33,7 +33,7 @@ class APIBase {
           resolve(response.data);
         })
         .catch((error) => {
-          $(".loading").classList.remove("hide");
+          // $(".loading").classList.remove("hide");
           reject(error);
           if (error.message == "Network Error") {
             alert("Vui lòng kiểm tra kết nối Internet");

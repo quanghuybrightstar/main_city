@@ -18,6 +18,7 @@ const baseWidth = SmartBaseScreen.smBaseWidth,
 const TextPlatform = ({ topProps, leftProps, widthProps, children }) => {
   return (
     <div
+      className="font_jura_bold"
       style={{
         fontSize: smFontSize * 20,
         color: ColorBase.yellowPrimary,

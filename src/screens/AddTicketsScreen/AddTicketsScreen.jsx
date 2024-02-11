@@ -28,6 +28,8 @@ import ImageBase from "../../components/Image/ImageBase";
 import PseudoClick from "../../components/PseudoClick/PseudoClick";
 import SelectionType from "../../constants/Selection";
 import ColorBase from "../../styles/Color";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 SmartBaseScreen.baseSetup();
 const baseWidth = SmartBaseScreen.smBaseWidth,
@@ -43,6 +45,9 @@ const AddTicketsScreen = (props) => {
     handleBuyTickets,
     handleDoMission,
   } = addTicketsLogic(props);
+
+  const { state } = useLocation();
+  // console.log(state);
 
   const renderMission = (mission) => {
     return (
